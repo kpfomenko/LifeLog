@@ -28,12 +28,7 @@ public class Home extends ActionBarActivity{
     private LinearLayoutManager recLayout = new LinearLayoutManager(this);
     private View noEntries;
     private ArrayList<Entry> data;
-    private ArrayList<String> categoryArray = new ArrayList<String>() {{
-        add("Work");
-        add("Rest");
-        add("Personal");
-        add("Active");
-    }};
+    private ArrayList<String> categoryArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +50,13 @@ public class Home extends ActionBarActivity{
         rec.setAdapter(recAdapter);
         if(recAdapter.getItemCount()!=0){
             noEntries.setVisibility(View.INVISIBLE);
+        }
+        if(categoryArray == null){
+            categoryArray = new ArrayList<String>();
+            categoryArray.add("Active");
+            categoryArray.add("Personal");
+            categoryArray.add("Rest");
+            categoryArray.add("Work");
         }
     }
 
