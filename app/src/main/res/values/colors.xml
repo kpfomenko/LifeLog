@@ -18,4 +18,5 @@
     <color name="black">#000000</color>
     <color name="actionbar">#DB4437</color>
     <color name="pressed">#C74338</color>
+    <color name="transparent">#00000000</color>
 </resources>
