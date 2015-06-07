@@ -28,6 +28,12 @@ public class Home extends ActionBarActivity{
     private LinearLayoutManager recLayout = new LinearLayoutManager(this);
     private View noEntries;
     private ArrayList<Entry> data;
+    private ArrayList<String> categoryArray = new ArrayList<String>() {{
+        add("Work");
+        add("Rest");
+        add("Personal");
+        add("Active");
+    }};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,9 @@ public class Home extends ActionBarActivity{
 //        newFragment.show(getFragmentManager(), "Create Entry");
         //Call new Activity
         Intent intent = new Intent(this, CreateEntryActivity.class);
+//        intent.putExtra("Categories", categoryArray);
+//        Toast.makeText(getApplicationContext(), "Categories 1: "+ categoryArray.get(0), Toast.LENGTH_LONG).show();
+        intent.putStringArrayListExtra("Categories", (ArrayList<String>) categoryArray);
         startActivity(intent);
     }
 }
