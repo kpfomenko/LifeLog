@@ -38,21 +38,21 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         final TimePickerDialog toReturn = new TimePickerDialog(new ContextThemeWrapper(getActivity(), R.style.MyAppThemeWithTimePicker), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
 //        final TimePickerDialog toReturn = new TimePickerDialog(getActivity(), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
         //Hopefully works
-//        toReturn.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                int tpLayoutId = getResources().getIdentifier("timePickerLayout", "id", "android");
-//
-//                ViewGroup tpLayout = (ViewGroup) toReturn.findViewById(tpLayoutId);
-//                ViewGroup layout = (ViewGroup) tpLayout.getChildAt(0);
-//
-//                // Customize minute NumberPicker
-//                NumberPicker minutePicker = (NumberPicker) layout.getChildAt(2);
-//                minutePicker.setDisplayedValues(new String[]{"00", "15", "30", "45", "00"});
-//                minutePicker.setMinValue(0);
-//                minutePicker.setMaxValue(3);
-//            }
-//        });
+        toReturn.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                int tpLayoutId = getResources().getIdentifier("timePickerLayout", "id", "android");
+
+                ViewGroup tpLayout = (ViewGroup) toReturn.findViewById(tpLayoutId);
+                ViewGroup layout = (ViewGroup) tpLayout.getChildAt(0);
+
+                // Customize minute NumberPicker
+                NumberPicker minutePicker = (NumberPicker) layout.getChildAt(2);
+                minutePicker.setDisplayedValues(new String[]{"00", "15", "30", "45", "00"});
+                minutePicker.setMinValue(0);
+                minutePicker.setMaxValue(3);
+            }
+        });
 
         // Create a new instance of TimePickerDialog and return it
 //        return new TimePickerDialog(getActivity(), this, hour, minute,
@@ -73,9 +73,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
             am_pm = "PM";
 
         String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
-//        String[] minVals = new String[]{"00", "15", "30", "45", "00"};
-//        String output = String.format("%s:%s %s", strHrsToShow, minVals[minute], am_pm);
-        String output = String.format("%s:%02d %s", strHrsToShow, minute, am_pm);
+        String[] minVals = new String[]{"00", "15", "30", "45", "00"};
+        String output = String.format("%s:%s %s", strHrsToShow, minVals[minute], am_pm);
+//        String output = String.format("%s:%02d %s", strHrsToShow, minute, am_pm);
 
         if(calledBtnVal == 0){
             Button startBtn = (Button) getActivity().findViewById(R.id.entry_start_time_btn);

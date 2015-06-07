@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,12 +70,19 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Spinner Value: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
         //Selecting a Category
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void edit_entry_save(View v){
+
+    }
+
+    public void edit_entry_delete(View v){
 
     }
 }
