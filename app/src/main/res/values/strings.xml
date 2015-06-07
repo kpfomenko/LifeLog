@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">LifeLog</string>
-
+    <string name="no_entries">No Entries</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_calendar_view">CalendarView</string>

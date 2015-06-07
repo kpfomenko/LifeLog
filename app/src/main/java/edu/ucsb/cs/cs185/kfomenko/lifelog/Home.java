@@ -2,16 +2,25 @@ package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.widget.RecyclerView;
 
 
 public class Home extends ActionBarActivity {
+    private RecyclerView rec;
+    private RecAdapter recAdapter;
+    private LinearLayoutManager recLayout = new LinearLayoutManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        rec = (RecyclerView) findViewById(R.id.recycler);
+        rec.setHasFixedSize(true);
+        recLayout.setOrientation(LinearLayoutManager.VERTICAL);
+        rec.setLayoutManager(recLayout);
     }
 
 
