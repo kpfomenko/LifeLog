@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     >
-
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -26,15 +25,15 @@
                 android:layout_weight="1"
                 />
         </TableRow>
-        </TableLayout>
-        <!--Divider    -->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            />
+    </TableLayout>
+    <!--Divider    -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        />
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -42,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-        >
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-        >
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,14 +79,14 @@
 
         </TableRow>
     </TableLayout>
-<!--Divider    -->
+    <!--Divider    -->
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-    />
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,6 +94,6 @@
         android:text="Select A Category"
         android:padding="15dp"
         android:layout_gravity="center"
-    />
+        />
 
 </LinearLayout>

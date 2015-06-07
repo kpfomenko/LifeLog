@@ -9,4 +9,5 @@
     <string name="activity_name">Name:</string>
     <string name="start_time">Start</string>
     <string name="end_time">Finish</string>
+    <string name="title_activity_create_entry">CreateEntryActivity</string>
 </resources>
