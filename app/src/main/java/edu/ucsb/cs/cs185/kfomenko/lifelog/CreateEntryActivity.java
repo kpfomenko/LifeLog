@@ -1,11 +1,13 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,7 +47,6 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -83,13 +84,16 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         newFragment.setBtnVal(1);
     }
 
-    public void selectACategory(View v){
-
-    }
+//    public void selectACategory(View v){
+//
+//    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getApplicationContext(), "Spinner Value: "+ parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        //Selecting a Category
+
+
     }
 
     @Override

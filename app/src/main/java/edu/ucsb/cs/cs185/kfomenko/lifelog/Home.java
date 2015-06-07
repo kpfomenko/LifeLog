@@ -86,9 +86,9 @@ public class Home extends ActionBarActivity{
 //        newFragment.show(getFragmentManager(), "Create Entry");
         //Call new Activity
         Intent intent = new Intent(this, CreateEntryActivity.class);
-//        intent.putExtra("Categories", categoryArray);
+        intent.putExtra("Categories", categoryArray);
 //        Toast.makeText(getApplicationContext(), "Categories 1: "+ categoryArray.get(0), Toast.LENGTH_LONG).show();
-        intent.putStringArrayListExtra("Categories", (ArrayList<String>) categoryArray);
+//        intent.putStringArrayListExtra("Categories", (ArrayList<String>) categoryArray);
         startActivity(intent);
     }
 
