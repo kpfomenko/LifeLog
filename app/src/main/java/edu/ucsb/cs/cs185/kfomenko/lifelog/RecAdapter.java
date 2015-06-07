@@ -49,12 +49,9 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         int six = (int) (Math.round((float)6 * density));
         int twohundo = (int) (Math.round((float)200 * density));
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, twohundo);
-        if(position == 0){
-            params.setMargins(six, six, six, six);
-            holder.card.setLayoutParams(params);
-        }
+        params.setMargins(0, 0, 0, 0);
+        holder.card.setLayoutParams(params);
         holder.card.setPreventCornerOverlap(false);
-        File temp = new File(myData.get(position));
     }
 
     @Override
