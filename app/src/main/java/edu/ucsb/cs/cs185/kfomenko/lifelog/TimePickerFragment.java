@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -33,7 +34,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         minute = (minute > 3) ? 0 : minute;
 
         final TimePickerDialog toReturn = new TimePickerDialog(getActivity(), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
-
 
         //Hopefully works
         toReturn.setOnShowListener(new DialogInterface.OnShowListener() {
