@@ -1,38 +1,36 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by jgee on 6/6/15.
- */
-public class EditEntryActivity extends ActionBarActivity{
+
+public class EditEntry extends ActionBarActivity {
     private ArrayList<Entry> entryList;
     private Entry currEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_edit_entry);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             currEntry = (Entry) extras.getParcelable("currEntry");
         }
+        TextView tv = (TextView) findViewById(R.id.edit_entry_label);
+        tv.setText(currEntry.getLabel());
+        tv.setBackgroundResource(currEntry.getColor());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_entry, menu);
         return true;
     }
 

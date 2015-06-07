@@ -10,5 +10,6 @@
     <string name="start_time">Start</string>
     <string name="end_time">Finish</string>
     <string name="title_activity_create_entry">CreateEntryActivity</string>
+    <string name="title_activity_edit_entry">EditEntry</string>
 
 </resources>

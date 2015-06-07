@@ -32,6 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ucsb.cs.cs185.kfomenko.lifelog.Home" />
         </activity>
+        <activity
+            android:name=".EditEntry"
+            android:label="@string/title_activity_edit_entry" >
+        </activity>
     </application>
 
 </manifest>
