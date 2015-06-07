@@ -26,17 +26,30 @@ public class Home extends ActionBarActivity{
     private RecyclerView rec;
     private RecAdapter recAdapter;
     private LinearLayoutManager recLayout = new LinearLayoutManager(this);
+    private View noEntries;
+    private ArrayList<Entry> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        noEntries = findViewById(R.id.no_entries);
         rec = (RecyclerView) findViewById(R.id.recycler);
         rec.setHasFixedSize(true);
         recLayout.setOrientation(LinearLayoutManager.VERTICAL);
         rec.setLayoutManager(recLayout);
-        recAdapter = new RecAdapter(new ArrayList<String>());
+        data = new ArrayList<Entry>();
+        Entry tempEntry = new Entry("8:00", "9:00", 1, "Morning Run", "jog around lagoon", R.color.actionbar);
+        Entry tempEntry2 = new Entry("9:00", "10:00", 2, "Morning Run", "jog around lagoon", R.color.blue);
+        data.add(tempEntry);
+        data.add(tempEntry2);
+        data.add(tempEntry);
+        data.add(tempEntry2);
+        recAdapter = new RecAdapter(data);
         rec.setAdapter(recAdapter);
+        if(recAdapter.getItemCount()!=0){
+            noEntries.setVisibility(View.INVISIBLE);
+        }
     }
 
 
