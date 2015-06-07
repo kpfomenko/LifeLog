@@ -20,18 +20,28 @@
         android:padding="0dp"
         android:layout_margin="0dp"
         android:background="@drawable/card_border">
-        <TextView
-            android:id="@+id/home_card_category"
+        <LinearLayout
+            android:id="@+id/home_card_header"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/home_card_start_time"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"/>
+            android:orientation="horizontal"
+            android:padding="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/home_card_category"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/home_card_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"/>
+        </LinearLayout>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -40,7 +50,7 @@
             android:id="@+id/home_card_label"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="8"
+            android:layout_weight="10"
             android:gravity="center"/>
     </LinearLayout>
 

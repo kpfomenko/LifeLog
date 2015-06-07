@@ -11,13 +11,15 @@ public class Entry {
     private Integer cat;
     private String label;
     private String annotation;
+    private Integer color;
 
-    public Entry(String startTime, String endTime, Integer cat, String label, String annotation){
+    public Entry(String startTime, String endTime, Integer cat, String label, String annotation, Integer color){
         this.startTime = startTime;
         this.endTime = endTime;
         this.cat = cat;
         this.label = label;
         this.annotation = annotation;
+        this.color = color;
     }
 
     public String getStartTime(){
@@ -40,6 +42,10 @@ public class Entry {
         return this.annotation;
     }
 
+    public Integer getColor(){
+        return this.color;
+    }
+
     public void setStartTime(String startTime){
         this.startTime = startTime;
     }
@@ -58,6 +64,10 @@ public class Entry {
 
     public void setAnnotation(String annotation){
         this.annotation = annotation;
+    }
+
+    public void setColor(Integer color){
+        this.color = color;
     }
 
 }

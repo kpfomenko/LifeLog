@@ -5,6 +5,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         public TextView startTime;
         public TextView category;
         public TextView label;
+        public LinearLayout header;
 
         public ViewHolder(CardView v){
             super(v);
@@ -27,6 +29,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
             startTime = (TextView) v.findViewById(R.id.home_card_start_time);
             category = (TextView) v.findViewById(R.id.home_card_category);
             label = (TextView) v.findViewById(R.id.home_card_label);
+            header = (LinearLayout) v.findViewById(R.id.home_card_header);
         }
 
     }
@@ -57,8 +60,11 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         holder.card.setPreventCornerOverlap(false);
         Entry temp = myData.get(position);
         holder.startTime.setText(temp.getStartTime());
+//        holder.startTime.setBackgroundResource(temp.getColor());
         holder.category.setText("@");
+//        holder.category.setBackgroundResource(temp.getColor());
         holder.label.setText(temp.getLabel());
+        holder.header.setBackgroundResource(temp.getColor());
         //TODO: set background of header to category color
     }
 
