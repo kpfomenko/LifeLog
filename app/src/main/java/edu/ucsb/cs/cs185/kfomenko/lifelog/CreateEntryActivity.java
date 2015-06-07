@@ -32,7 +32,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 //            Toast.makeText(getApplicationContext(), "Categories Loaded! + "+  categoryArray.get(0), Toast.LENGTH_LONG).show();
         }else{
 //            Toast.makeText(getApplicationContext(), "Load-failed", Toast.LENGTH_LONG).show();
-            categoryArray = new ArrayList<>();
+            categoryArray = new ArrayList<String>();
         }
 
         Spinner spinner = (Spinner) findViewById(R.id.cat_spinner);

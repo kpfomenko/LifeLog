@@ -27,7 +27,8 @@
         <activity
             android:name=".CreateEntryActivity"
             android:label="@string/title_activity_create_entry"
-            android:parentActivityName=".Home" >
+            android:parentActivityName=".Home"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ucsb.cs.cs185.kfomenko.lifelog.Home" />
