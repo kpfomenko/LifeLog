@@ -6,7 +6,7 @@
     <string name="title_activity_calendar_view">CalendarView</string>
     <string name="title_create_entry_dialogue">Create New Entry: </string>
     <string name="saveBtnText">Save</string>
-    <string name="activity_name">Activity Name: </string>
+    <string name="activity_name">Name:</string>
     <string name="start_time">Start</string>
     <string name="end_time">Finish</string>
 </resources>
