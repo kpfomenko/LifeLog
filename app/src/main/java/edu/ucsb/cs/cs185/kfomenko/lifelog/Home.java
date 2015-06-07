@@ -40,12 +40,18 @@ public class Home extends ActionBarActivity{
         recLayout.setOrientation(LinearLayoutManager.VERTICAL);
         rec.setLayoutManager(recLayout);
         data = new ArrayList<Entry>();
-        Entry tempEntry = new Entry("8:00", "9:00", 1, "Morning Run", "jog around lagoon", R.color.actionbar);
-        Entry tempEntry2 = new Entry("9:00", "10:00", 2, "Morning Run", "jog around lagoon", R.color.blue);
+        Entry tempEntry = new Entry("8:00", "9:00", "Active", "Morning Run", "jog around lagoon", R.color.active);
+        Entry tempEntry2 = new Entry("9:00", "10:00", "Personal", "Morning Run", "jog around lagoon", R.color.personal);
+        Entry tempEntry3 = new Entry("8:00", "9:00", "Active", "Morning Run", "jog around lagoon", R.color.work);
+        Entry tempEntry4 = new Entry("9:00", "10:00", "Personal", "Morning Run", "jog around lagoon", R.color.rest);
+        Entry tempEntry5 = new Entry("9:00", "10:00", "Personal", "Morning Run", "jog around lagoon", R.color.custom);
+//        Entry tempEntry = new Entry("8:00", "9:00", 1, "Morning Run", "jog around lagoon", R.color.actionbar);
+//        Entry tempEntry2 = new Entry("9:00", "10:00", 2, "Morning Run", "jog around lagoon", R.color.blue);
         data.add(tempEntry);
         data.add(tempEntry2);
-        data.add(tempEntry);
-        data.add(tempEntry2);
+        data.add(tempEntry3);
+        data.add(tempEntry4);
+        data.add(tempEntry5);
         recAdapter = new RecAdapter(data);
         rec.setAdapter(recAdapter);
         if(recAdapter.getItemCount()!=0){
@@ -89,6 +95,7 @@ public class Home extends ActionBarActivity{
         //Call new Activity
         Intent intent = new Intent(this, CreateEntryActivity.class);
         intent.putExtra("Categories", categoryArray);
+       intent.putParcelableArrayListExtra("entryList", data);
 //        Toast.makeText(getApplicationContext(), "Categories 1: "+ categoryArray.get(0), Toast.LENGTH_LONG).show();
 //        intent.putStringArrayListExtra("Categories", (ArrayList<String>) categoryArray);
         startActivity(intent);

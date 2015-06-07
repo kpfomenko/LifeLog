@@ -11,7 +11,7 @@ import android.text.format.Time;
 public class Entry implements Parcelable{
     private String startTime;
     private String endTime;
-    private Integer cat;
+    private String cat;
     private String label;
     private String annotation;
     private Integer color;
@@ -23,13 +23,13 @@ public class Entry implements Parcelable{
     public void writeToParcel(Parcel out, int flags){
         out.writeString(this.startTime);
         out.writeString(this.endTime);
-        out.writeInt(this.cat);
+        out.writeString(this.cat);
         out.writeString(this.label);
         out.writeString(this.annotation);
         out.writeInt(this.color);
     }
 
-    public Entry(String startTime, String endTime, Integer cat, String label, String annotation, Integer color) {
+    public Entry(String startTime, String endTime, String cat, String label, String annotation, Integer color) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.cat = cat;
@@ -41,7 +41,7 @@ public class Entry implements Parcelable{
     public Entry(Parcel in){
         this.startTime = in.readString();
         this.endTime = in.readString();
-        this.cat = in.readInt();
+        this.cat = in.readString();
         this.label = in.readString();
         this.annotation = in.readString();
         this.color = in.readInt();
@@ -64,7 +64,7 @@ public class Entry implements Parcelable{
         return this.endTime;
     }
 
-    public Integer getCat(){
+    public String getCat(){
         return this.cat;
     }
 
@@ -88,7 +88,7 @@ public class Entry implements Parcelable{
         this.endTime = endTime;
     }
 
-    public void setCat(Integer cat){
+    public void setCat(String cat){
         this.cat = cat;
     }
 

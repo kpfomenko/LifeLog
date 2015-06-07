@@ -48,9 +48,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
                 // Customize minute NumberPicker
                 NumberPicker minutePicker = (NumberPicker) layout.getChildAt(2);
-                minutePicker.setDisplayedValues(new String[]{"00", "15", "30", "45", "00"});
                 minutePicker.setMinValue(0);
                 minutePicker.setMaxValue(3);
+                minutePicker.setDisplayedValues(new String[]{"00", "15", "30", "45", "00"});
             }
         });
 

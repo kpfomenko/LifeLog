@@ -18,7 +18,19 @@ import java.util.ArrayList;
 
 
 public class CreateEntryActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+    private ArrayList<Entry> entryList;
     private ArrayList<String> categoryArray;
+
+    //Values being set
+    private String startTime;
+    private String endTime;
+    private String cat;
+    private String label;
+    private String annotation;
+    private Integer color;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +39,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         Bundle extras = intent.getExtras();
 
         if(extras != null){
+            entryList = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
             categoryArray.add("+ Create");
 //            Toast.makeText(getApplicationContext(), "Categories Loaded! + "+  categoryArray.get(0), Toast.LENGTH_LONG).show();
@@ -90,8 +103,32 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Spinner Value: "+ parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "Spinner Value: "+ parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
         //Selecting a Category
+        switch (parent.getItemAtPosition(position).toString() ){
+            case "Work":
+                cat = "Work";
+                color = R.color.work;
+                break;
+            case "Rest":
+                cat = "Rest";
+                color = R.color.rest;
+                break;
+            case "Personal":
+                cat = "Personal";
+                color = R.color.personal;
+                break;
+            case "Active":
+                cat = "Active";
+                color = R.color.active;
+                break;
+            case "+ Create":
+                cat = "+ Create";
+                color = R.color.custom;
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "Error: Unknown option selected" , Toast.LENGTH_LONG).show();
+        }
 
 
     }
