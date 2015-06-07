@@ -16,22 +16,11 @@ import java.util.Calendar;
 /**
  * Created by Katya on 6/6/2015.
  */
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-//    OnChangeListener mCallback;
+public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+//public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener, TimePicker.OnTimeChangedListener {
     int calledBtnVal;
-//    public interface OnChangeListener{
-//        public void onChangeOccured(int hourOfDay, int minute, int calledBtnVal);
-//    }
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mCallback = (OnChangeListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnHeadlineSelectedListener");
-//        }
-//    }
+    private static final int TIME_PICKER_INTERVAL=15;
+    private boolean mIgnoreEvent=false;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,19 +63,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public void setBtnVal(int val){
         calledBtnVal = val;
     }
-}
 
-//public class TimePickerFragment extends TimePickerDialog{
-//
-//    public TimePickerFragment(Context arg0, OnTimeSetListener callBack, int hourOfDay, int minute, boolean is24HourView) {
-//        super(arg0, callBack, hourOfDay, minute, is24HourView);
-//        // TODO Auto-generated constructor stub
-//    }
-//
 //    @Override
 //    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-//        // TODO Auto-generated method stub
-//        //super.onTimeChanged(arg0, arg1, arg2);
 //        if (mIgnoreEvent)
 //            return;
 //        if (minute%TIME_PICKER_INTERVAL!=0){
@@ -95,12 +74,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 //            if (minute==60)
 //                minute=0;
 //            mIgnoreEvent=true;
-//            view.setCurrentMinute(minute);
+//            timePicker.setCurrentMinute(minute);
 //            mIgnoreEvent=false;
 //        }
+//
 //    }
-//
-//    private final int TIME_PICKER_INTERVAL=15;
-//    private boolean mIgnoreEvent=false;
-//
-//}
+}
