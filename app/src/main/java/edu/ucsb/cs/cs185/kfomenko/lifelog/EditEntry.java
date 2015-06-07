@@ -4,13 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class EditEntry extends ActionBarActivity {
+public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     private ArrayList<Entry> entryList;
+    private ArrayList<String> categoryArray;
     private Entry currEntry;
 
     @Override
@@ -21,10 +29,22 @@ public class EditEntry extends ActionBarActivity {
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             currEntry = (Entry) extras.getParcelable("currEntry");
+            categoryArray = extras.getStringArrayList("Categories");
+            categoryArray.add("+ Create");
         }
-        TextView tv = (TextView) findViewById(R.id.edit_entry_label);
-        tv.setText(currEntry.getLabel());
-        tv.setBackgroundResource(currEntry.getColor());
+        LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
+        header.setBackgroundResource(currEntry.getColor());
+        TextView label = (TextView) findViewById(R.id.edit_entry_label);
+        label.setText(currEntry.getLabel());
+        TextView startTime = (TextView) findViewById(R.id.edit_entry_start_time);
+        startTime.setText(currEntry.getStartTime());
+        TextView endTime = (TextView) findViewById(R.id.edit_entry_end_time);
+        endTime.setText(currEntry.getEndTime());
+        Spinner catSpin = (Spinner) findViewById(R.id.edit_entry_category_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
+        catSpin.setAdapter(adapter);
+        catSpin.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -47,5 +67,16 @@ public class EditEntry extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getApplicationContext(), "Spinner Value: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        //Selecting a Category
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

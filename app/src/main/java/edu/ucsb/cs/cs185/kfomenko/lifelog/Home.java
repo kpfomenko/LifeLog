@@ -108,6 +108,7 @@ public class Home extends ActionBarActivity{
         Intent intent = new Intent(this, EditEntry.class);
         intent.putParcelableArrayListExtra("entryList", data);
         intent.putExtra("currEntry", cast.getEntry());
+        intent.putExtra("Categories", categoryArray);
         startActivity(intent);
     }
 }
