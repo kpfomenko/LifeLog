@@ -34,6 +34,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         final TimePickerDialog toReturn = new TimePickerDialog(getActivity(), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
 
+
+        //Hopefully works
         toReturn.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
