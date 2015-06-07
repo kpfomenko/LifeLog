@@ -82,38 +82,4 @@ public class Home extends ActionBarActivity{
         Intent intent = new Intent(this, CreateEntryActivity.class);
         startActivity(intent);
     }
-//    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog) {
-//        Toast.makeText(getApplicationContext(), "Positive Click! :)", Toast.LENGTH_SHORT).show();
-//    }
-//    public void setStartTime(View v){
-//        TimePickerFragment newFragment = new TimePickerFragment();
-//        newFragment.show(getFragmentManager(), "timePicker");
-//        //0 for Start Button
-//        newFragment.setBtnVal(0);
-//    }
-//
-//    public void setEndTime(View v){
-//        TimePickerFragment newFragment = new TimePickerFragment();
-//        newFragment.show(getFragmentManager(), "timePicker");
-//        //1 for EndTIme
-//        newFragment.setBtnVal(1);
-////        Button endBtn = (Button) findViewById(R.id.entry_end_time_btn);
-////        endBtn.setText(newFragment.getTimeAsString());
-//    }
-
-//    @Override
-//    public void onChangeOccured(int hourOfDay, int minute, int calledBtnVal) {
-//        if(calledBtnVal == 0){
-//           //start Btn
-////            Button timePickerCaller = (Button) findViewById(R.id.entry_start_time_btn);
-////            timePickerCaller.setText(hourOfDay+":"+minute);
-//            Toast.makeText(getApplicationContext(), "Start Time: "+ hourOfDay+":"+minute, Toast.LENGTH_SHORT).show();
-//        }else{
-////            Button timePickerCaller = (Button) findViewById(R.id.entry_end_time_btn);
-////            timePickerCaller.setText(hourOfDay+":"+minute);
-//            Toast.makeText(getApplicationContext(), "End Time: "+ hourOfDay+":"+minute, Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
 }
