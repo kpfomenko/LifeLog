@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CalendarView"
+            android:label="@string/title_activity_calendar_view"
+            android:parentActivityName=".Home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ucsb.cs.cs185.kfomenko.lifelog.Home" />
+        </activity>
     </application>
 
 </manifest>
