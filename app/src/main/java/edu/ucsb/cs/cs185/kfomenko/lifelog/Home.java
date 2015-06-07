@@ -4,13 +4,16 @@ import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class Home extends ActionBarActivity implements CreateEntryFragment.CreateEntryListener{
@@ -61,4 +64,18 @@ public class Home extends ActionBarActivity implements CreateEntryFragment.Creat
     public void onDialogPositiveClick(DialogFragment dialog) {
         Toast.makeText(getApplicationContext(), "Positive Click! :)", Toast.LENGTH_SHORT).show();
     }
+    public void setStartTime(View v){
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
+//        Button startBtn = (Button) findViewById(R.id.entry_start_time_btn);
+//        startBtn.setText(newFragment.getTimeAsString());
+    }
+
+    public void setEndTime(View v){
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
+//        Button endBtn = (Button) findViewById(R.id.entry_end_time_btn);
+//        endBtn.setText(newFragment.getTimeAsString());
+    }
+
 }

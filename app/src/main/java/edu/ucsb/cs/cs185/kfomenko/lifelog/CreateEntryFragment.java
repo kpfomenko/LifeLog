@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.TimePicker;
 
 /**
  * Created by Katya on 6/6/2015.
@@ -67,4 +69,5 @@ public class CreateEntryFragment extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
+
 }

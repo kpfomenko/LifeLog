@@ -52,9 +52,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/entry_start_time"
+                android:id="@+id/entry_start_time_btn"
                 android:text="@string/start_time"
                 android:layout_marginLeft="10dp"
+                android:onClick="setStartTime"
                 />
         </TableRow>
         <TableRow
@@ -71,9 +72,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/entry_end_time"
+                android:id="@+id/entry_end_time_btn"
                 android:text="@string/end_time"
                 android:layout_marginLeft="10dp"
+                android:onClick="setEndTime"
                 />
 
         </TableRow>
