@@ -91,4 +91,23 @@ public class Home extends ActionBarActivity{
         intent.putStringArrayListExtra("Categories", (ArrayList<String>) categoryArray);
         startActivity(intent);
     }
+
+    public void home_card_click(View v){
+        HomeCard cast = (edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard) v;
+//        IMPORTANT USAGE FOR PASSING ARRAYLIST<ENTRY> BETWEEN ACTIVITIES
+//
+//        TO PUT:
+//        Intent i = new Intent(...);
+//        i.putParcelableArrayList("data", yourArrayList<T extends Parcelable>);
+//
+//        TO GET:
+//        ArrayList<Entry> yourArrayList = getIntent.getParcelableArrayList("data");
+        if(data == null){
+            data = new ArrayList<Entry>();
+        }
+        Intent intent = new Intent(this, EditEntryActivity.class);
+        intent.putParcelableArrayListExtra("entryList", data);
+        intent.putExtra("currEntry", cast.getEntry());
+        startActivity(intent);
+    }
 }

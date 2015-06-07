@@ -17,7 +17,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public CardView card;
+        public edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard card;
         public TextView startTime;
         public TextView category;
         public TextView label;
@@ -25,7 +25,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
 
         public ViewHolder(CardView v){
             super(v);
-            card = (CardView) v;
+            card = (edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard) v;
             startTime = (TextView) v.findViewById(R.id.home_card_start_time);
             category = (TextView) v.findViewById(R.id.home_card_category);
             label = (TextView) v.findViewById(R.id.home_card_label);
@@ -59,6 +59,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         holder.card.setLayoutParams(params);
         holder.card.setPreventCornerOverlap(false);
         Entry temp = myData.get(position);
+        holder.card.setEntry(temp);
         holder.startTime.setText(temp.getStartTime());
 //        holder.startTime.setBackgroundResource(temp.getColor());
         holder.category.setText("@");

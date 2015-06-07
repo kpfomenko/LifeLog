@@ -1,11 +1,14 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.format.Time;
+
 
 /**
  * Created by jgee on 6/6/15.
  */
-public class Entry {
+public class Entry implements Parcelable{
     private String startTime;
     private String endTime;
     private Integer cat;
@@ -13,7 +16,20 @@ public class Entry {
     private String annotation;
     private Integer color;
 
-    public Entry(String startTime, String endTime, Integer cat, String label, String annotation, Integer color){
+    public int describeContents(){
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags){
+        out.writeString(this.startTime);
+        out.writeString(this.endTime);
+        out.writeInt(this.cat);
+        out.writeString(this.label);
+        out.writeString(this.annotation);
+        out.writeInt(this.color);
+    }
+
+    public Entry(String startTime, String endTime, Integer cat, String label, String annotation, Integer color) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.cat = cat;
@@ -21,6 +37,24 @@ public class Entry {
         this.annotation = annotation;
         this.color = color;
     }
+
+    public Entry(Parcel in){
+        this.startTime = in.readString();
+        this.endTime = in.readString();
+        this.cat = in.readInt();
+        this.label = in.readString();
+        this.annotation = in.readString();
+        this.color = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Entry> CREATOR = new Parcelable.Creator<Entry>(){
+        public Entry createFromParcel(Parcel in){
+            return new Entry(in);
+        }
+        public Entry[] newArray(int size){
+            return new Entry[size];
+        }
+    };
 
     public String getStartTime(){
         return this.startTime;
