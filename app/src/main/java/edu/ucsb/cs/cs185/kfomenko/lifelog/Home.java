@@ -1,14 +1,19 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
-public class Home extends ActionBarActivity {
+public class Home extends ActionBarActivity implements CreateEntryFragment.CreateEntryListener{
     private RecyclerView rec;
     private RecAdapter recAdapter;
     private LinearLayoutManager recLayout = new LinearLayoutManager(this);
@@ -21,6 +26,8 @@ public class Home extends ActionBarActivity {
         rec.setHasFixedSize(true);
         recLayout.setOrientation(LinearLayoutManager.VERTICAL);
         rec.setLayoutManager(recLayout);
+        recAdapter = new RecAdapter(new ArrayList<String>());
+        rec.setAdapter(recAdapter);
     }
 
 
@@ -44,5 +51,14 @@ public class Home extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onTestFragment(View v){
+        DialogFragment newFragment = new CreateEntryFragment();
+        newFragment.show(getFragmentManager(), "Create Entry");
+    }
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Toast.makeText(getApplicationContext(), "Positive Click! :)", Toast.LENGTH_SHORT).show();
     }
 }
