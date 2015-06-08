@@ -63,7 +63,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/selectCategory"
             android:text="Select A Category:"
-            android:onClick="selectACategory"
             android:textSize="15dp"
             />
         <edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner
