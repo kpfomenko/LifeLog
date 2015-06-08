@@ -18,6 +18,6 @@ public class HomeCard extends android.support.v7.widget.CardView {
     }
 
     public void setEntry(Entry entry){
-        this.entry = entry;
+        this.entry = new Entry(entry.getStartTime(), entry.getEndTime(), entry.getCat(), entry.getLabel(), entry.getAnnotation(), entry.getColor());
     }
 }

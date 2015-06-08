@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,14 +12,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
 public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
-    private ArrayList<Entry> entryList;
-    private ArrayList<String> categoryArray;
+    private ArrayList<Entry> entryList = new ArrayList<Entry>();
+    private ArrayList<String> categoryArray = new ArrayList<String>();
+    private ArrayList<String> origCategoryArray = new ArrayList<String>();
     private Entry currEntry;
+    private Integer color;
+    private String cat;
+    private String annotation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +34,16 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             currEntry = (Entry) extras.getParcelable("currEntry");
-            categoryArray = extras.getStringArrayList("Categories");
+            origCategoryArray = extras.getStringArrayList("Categories");
+            for(int i=0; i<origCategoryArray.size(); i++){
+                categoryArray.add(origCategoryArray.get(i));
+            }
             categoryArray.add("+ Create");
         }
         LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
+        color = currEntry.getColor();
+        cat = currEntry.getCat();
+        annotation = currEntry.getAnnotation();
         header.setBackgroundResource(currEntry.getColor());
         TextView label = (TextView) findViewById(R.id.edit_entry_label);
         label.setText(currEntry.getLabel());
@@ -43,7 +55,15 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
         catSpin.setAdapter(adapter);
+        int spinPos = adapter.getPosition(currEntry.getCat());
+        catSpin.setSelection(spinPos);
         catSpin.setOnItemSelectedListener(this);
+        EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
+        if(annotation == null || annotation.equals("")){
+            et.setText("Add a description");
+        }else{
+            et.setText(annotation);
+        }
     }
 
     @Override
@@ -71,6 +91,33 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Selecting a Category
+        switch (parent.getItemAtPosition(position).toString() ){
+            case "Work":
+                cat = "Work";
+                color = R.color.work;
+                break;
+            case "Rest":
+                cat = "Rest";
+                color = R.color.rest;
+                break;
+            case "Personal":
+                cat = "Personal";
+                color = R.color.personal;
+                break;
+            case "Active":
+                cat = "Active";
+                color = R.color.active;
+                break;
+            case "+ Create": //TODO: Add to category list
+                color = R.color.custom;
+                break;
+            default:
+                cat = parent.getItemAtPosition(position).toString();
+                color = R.color.custom;
+                break;
+        }
+        LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
+        header.setBackgroundResource(color);
     }
 
     @Override
@@ -79,10 +126,35 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
     }
 
     public void edit_entry_save(View v){
-
+        EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
+        if(et.getEditableText().toString().equals("Add a description")){
+            annotation = null;
+        }else {
+            annotation = et.getEditableText().toString();
+        }
+        for(int i=0; i<entryList.size(); i++){
+            if(currEntry.equals(entryList.get(i))){
+                entryList.get(i).setCat(cat);
+                entryList.get(i).setAnnotation(annotation);
+                entryList.get(i).setColor(color);
+                break;
+            }
+        }
+        Intent intent = new Intent(this, Home.class);
+        intent.putParcelableArrayListExtra("entryList", entryList);
+        intent.putExtra("Categories", origCategoryArray);
+        startActivity(intent);
     }
 
     public void edit_entry_delete(View v){
-
+        for(int i=0; i<entryList.size(); i++){
+            if(currEntry.equals(entryList.get(i))){
+                entryList.remove(i);
+            }
+        }
+        Intent intent = new Intent(this, Home.class);
+        intent.putParcelableArrayListExtra("entryList", entryList);
+        intent.putExtra("Categories", origCategoryArray);
+        startActivity(intent);
     }
 }

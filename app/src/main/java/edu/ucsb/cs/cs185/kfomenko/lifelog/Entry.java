@@ -104,4 +104,13 @@ public class Entry implements Parcelable{
         this.color = color;
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(other == null) return false;
+        if(other == this) return true;
+        if(!(other instanceof Entry)) return false;
+        Entry o = (Entry) other;
+        return this.startTime.equals(o.getStartTime()) && this.endTime.equals(o.getEndTime()) && this.cat.equals(o.getCat()) && this.label.equals(o.getLabel()) && this.annotation.equals(o.getAnnotation());
+    }
+
 }

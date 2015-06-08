@@ -39,19 +39,23 @@ public class Home extends ActionBarActivity{
         rec.setHasFixedSize(true);
         recLayout.setOrientation(LinearLayoutManager.VERTICAL);
         rec.setLayoutManager(recLayout);
-        data = new ArrayList<Entry>();
-        Entry tempEntry = new Entry("8:00", "9:00", "Active", "Morning Run", "jog around lagoon", R.color.active);
-        Entry tempEntry2 = new Entry("9:00", "10:00", "Personal", "Morning Run", "jog around lagoon", R.color.personal);
-        Entry tempEntry3 = new Entry("8:00", "9:00", "Active", "Morning Run", "jog around lagoon", R.color.work);
-        Entry tempEntry4 = new Entry("9:00", "10:00", "Personal", "Morning Run", "jog around lagoon", R.color.rest);
-        Entry tempEntry5 = new Entry("9:00", "10:00", "Personal", "Morning Run", "jog around lagoon", R.color.custom);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            data = extras.getParcelableArrayList("entryList");
+            categoryArray = extras.getStringArrayList("Categories");
+        }else{
+            data = new ArrayList<Entry>();
+            Entry tempEntry = new Entry("8:00", "9:00", "Active", "Morning Run", "jog around lagoon", R.color.active);
+            Entry tempEntry2 = new Entry("9:00", "10:00", "Personal", "Morning Run", "", R.color.personal);
+            Entry tempEntry3 = new Entry("8:00", "9:00", "Work", "Morning Run", null, R.color.work);
+            Entry tempEntry4 = new Entry("9:00", "10:00", "Rest", "Morning Run", "jog around lagoon", R.color.rest);
 //        Entry tempEntry = new Entry("8:00", "9:00", 1, "Morning Run", "jog around lagoon", R.color.actionbar);
 //        Entry tempEntry2 = new Entry("9:00", "10:00", 2, "Morning Run", "jog around lagoon", R.color.blue);
-        data.add(tempEntry);
-        data.add(tempEntry2);
-        data.add(tempEntry3);
-        data.add(tempEntry4);
-        data.add(tempEntry5);
+            data.add(tempEntry);
+            data.add(tempEntry2);
+            data.add(tempEntry3);
+            data.add(tempEntry4);
+        }
         recAdapter = new RecAdapter(data);
         rec.setAdapter(recAdapter);
         if(recAdapter.getItemCount()!=0){
