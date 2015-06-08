@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,17 +9,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class Home extends ActionBarActivity{
+public class Home extends ActionBarActivity implements FilterByCategoryFragment.FilterCategoryListener {
     private RecyclerView rec;
     private RecAdapter recAdapter;
     private LinearLayoutManager recLayout = new LinearLayoutManager(this);
     private View noEntries;
     private ArrayList<Entry> data = new ArrayList<Entry>();
+    private ArrayList<Entry> showEntries = new ArrayList<Entry>();
     private ArrayList<String> categoryArray;
+    private ArrayList<String> showCategoryArray;
+    private ArrayList<String> defaultCategoryArray;
 
     @Override
     public void onSaveInstanceState(Bundle outState){
@@ -45,11 +54,6 @@ public class Home extends ActionBarActivity{
             data = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
         }
-        recAdapter = new RecAdapter(data);
-        rec.setAdapter(recAdapter);
-        if(recAdapter.getItemCount()!=0){
-            noEntries.setVisibility(View.INVISIBLE);
-        }
         if(categoryArray == null){
             categoryArray = new ArrayList<String>();
             categoryArray.add("Active");
@@ -58,6 +62,27 @@ public class Home extends ActionBarActivity{
             categoryArray.add("Work");
         }
 
+        defaultCategoryArray = new ArrayList<String>();
+        defaultCategoryArray.add("Active");
+        defaultCategoryArray.add("Personal");
+        defaultCategoryArray.add("Rest");
+        defaultCategoryArray.add("Work");
+
+        recAdapter = new RecAdapter(data);
+        rec.setAdapter(recAdapter);
+        if(recAdapter.getItemCount()!=0){
+            noEntries.setVisibility(View.INVISIBLE);
+        }
+
+        showCategoryArray = new ArrayList<String>();
+        showCategoryArray.add("Active");
+        showCategoryArray.add("Personal");
+        showCategoryArray.add("Rest");
+        showCategoryArray.add("Work");
+        showCategoryArray.add("Custom");
+
+
+        updateDisplayedCards();
     }
 
 
@@ -78,6 +103,14 @@ public class Home extends ActionBarActivity{
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id == R.id.action_filter){
+            //Filtering CardView!
+            FilterByCategoryFragment newFragment = new FilterByCategoryFragment();
+            newFragment.selectSavedCategories(showCategoryArray);
+            newFragment.show(getFragmentManager(), "Filter");
+
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -113,5 +146,94 @@ public class Home extends ActionBarActivity{
         intent.putExtra("currEntry", cast.getEntry());
         intent.putExtra("Categories", categoryArray);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Toast.makeText(getApplicationContext(), "PostiveClick ", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_active:
+                if(checked && !showCategoryArray.contains("Active")){
+//                    Toast.makeText(getApplicationContext(), "Active Added!", Toast.LENGTH_SHORT).show();
+                    showCategoryArray.add("Active");
+                }else if(!checked){
+                    showCategoryArray.remove("Active");
+//                    Toast.makeText(getApplicationContext(), "Active Removed!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.checkbox_personal:
+                if(checked && !showCategoryArray.contains("Personal")){
+                    showCategoryArray.add("Personal");
+                }else if(!checked){
+                    showCategoryArray.remove("Personal");
+                }
+                break;
+            case R.id.checkbox_rest:
+                if(checked && !showCategoryArray.contains("Rest")){
+                    showCategoryArray.add("Rest");
+                }else if(!checked){
+                    showCategoryArray.remove("Rest");
+                }
+                break;
+            case R.id.checkbox_work:
+                if(checked && !showCategoryArray.contains("Work")){
+                    showCategoryArray.add("Work");
+                }else if(!checked){
+                    showCategoryArray.remove("Work");
+                }
+                break;
+            case R.id.checkbox_custom:
+                if(checked && !showCategoryArray.contains("Custom")){
+                    showCategoryArray.add("Custom");
+                }else if(!checked){
+                    showCategoryArray.remove("Custom");
+                }
+                break;
+        }
+
+        //update the cards with the show array
+        updateDisplayedCards();
+    }
+
+    public void updateDisplayedCards(){
+
+        //Check if Custom Allowed
+        boolean customAllowed = false;
+        for(int i=0; i< showCategoryArray.size(); i++){
+            if(!defaultCategoryArray.contains(showCategoryArray.get(i))){
+                customAllowed = true;
+                break;
+            }
+        }
+
+        showEntries.clear();
+        for(int i=0; i< data.size(); i++){
+            if(customAllowed && !defaultCategoryArray.contains(data.get(i).getCat())){
+                //if custom is allowed, and the category is not a default one, then add it
+                showEntries.add(data.get(i));
+            }
+            if(showCategoryArray.contains(data.get(i).getCat())){
+                showEntries.add(data.get(i));
+            }
+        }
+        recAdapter.update(showEntries);
+
+        TextView filterNotification = (TextView) findViewById(R.id.filter_notification);
+        if(showCategoryArray.size()!= 5){
+            //Filters Are On!
+            filterNotification.setVisibility(View.VISIBLE);
+        }else{
+            filterNotification.setVisibility(View.INVISIBLE);
+        }
+        if(recAdapter.getItemCount()!=0){
+            noEntries.setVisibility(View.INVISIBLE);
+        }
+
     }
 }

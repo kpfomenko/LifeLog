@@ -14,5 +14,6 @@
     <string name="title_create_category">Create New Category:</string>
     <string name="doneBtnText">Done</string>
     <string name="cancelBtnText">Cancel</string>
+    <string name="filter_title">Filter By: </string>
 
 </resources>

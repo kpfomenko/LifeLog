@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    >
+
+    <CheckBox android:id="@+id/checkbox_active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Active"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_personal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personal"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_rest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rest"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_work"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Work"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom"
+        android:onClick="onCheckboxClicked"/>
+
+    </LinearLayout>
+
+</LinearLayout>
