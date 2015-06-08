@@ -38,7 +38,12 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
     int selectCount = 0;
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("data", entryList);
+        outState.putStringArrayList("categories", categoryArray);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,10 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         setContentView(R.layout.activity_create_entry);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-
+        if(savedInstanceState != null){
+            entryList = savedInstanceState.getParcelableArrayList("data");
+            categoryArray = savedInstanceState.getStringArrayList("categories");
+        }
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
@@ -94,7 +102,12 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(this, Home.class);
+            intent.putParcelableArrayListExtra("entryList", entryList);
+            intent.putStringArrayListExtra("Categories", categoryArray);
+            startActivity(intent);
+
             return true;
         }
 

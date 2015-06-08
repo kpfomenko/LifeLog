@@ -63,8 +63,8 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         int multiplyer = getMinutes(temp.getEndTime()) - getMinutes(temp.getStartTime());
         multiplyer = multiplyer/15;
         float density  = context.getResources().getDisplayMetrics().density;
-        int singlesize = (int) (Math.round((float)25 * density));
-        int height = singlesize * multiplyer;
+        int singlesize = (int) (Math.round((float)30 * density));
+        int height = (int) (singlesize * multiplyer);
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         params.setMargins(0, 0, 0, 0);
         holder.card.setLayoutParams(params);
