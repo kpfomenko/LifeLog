@@ -109,8 +109,11 @@ public class Home extends ActionBarActivity implements FilterByCategoryFragment.
             FilterByCategoryFragment newFragment = new FilterByCategoryFragment();
             newFragment.selectSavedCategories(showCategoryArray);
             newFragment.show(getFragmentManager(), "Filter");
-
-
+        }
+        if(id == R.id.action_clear) {
+            data.clear();
+            updateDisplayedCards();
+            noEntries.setVisibility(View.VISIBLE);
         }
 
         return super.onOptionsItemSelected(item);
