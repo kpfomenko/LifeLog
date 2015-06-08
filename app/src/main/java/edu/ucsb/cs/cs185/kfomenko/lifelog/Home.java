@@ -27,7 +27,7 @@ public class Home extends ActionBarActivity{
     private RecAdapter recAdapter;
     private LinearLayoutManager recLayout = new LinearLayoutManager(this);
     private View noEntries;
-    private ArrayList<Entry> data;
+    private ArrayList<Entry> data = new ArrayList<Entry>();
     private ArrayList<String> categoryArray;
 
     @Override
@@ -43,18 +43,6 @@ public class Home extends ActionBarActivity{
         if(extras != null){
             data = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
-        }else{
-            data = new ArrayList<Entry>();
-            Entry tempEntry = new Entry("8:00", "9:00", "Active", "Morning Run", "jog around lagoon", R.color.active);
-            Entry tempEntry2 = new Entry("9:00", "10:00", "Personal", "Morning Run", "", R.color.personal);
-            Entry tempEntry3 = new Entry("8:00", "9:00", "Work", "Morning Run", null, R.color.work);
-            Entry tempEntry4 = new Entry("9:00", "10:00", "Rest", "Morning Run", "jog around lagoon", R.color.rest);
-//        Entry tempEntry = new Entry("8:00", "9:00", 1, "Morning Run", "jog around lagoon", R.color.actionbar);
-//        Entry tempEntry2 = new Entry("9:00", "10:00", 2, "Morning Run", "jog around lagoon", R.color.blue);
-            data.add(tempEntry);
-            data.add(tempEntry2);
-            data.add(tempEntry3);
-            data.add(tempEntry4);
         }
         recAdapter = new RecAdapter(data);
         rec.setAdapter(recAdapter);
