@@ -35,6 +35,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         int minute = c.get(Calendar.MINUTE)/ 15;
         minute = (minute > 3) ? 0 : minute;
 
+
         final TimePickerDialog toReturn = new TimePickerDialog(new ContextThemeWrapper(getActivity(), R.style.MyAppThemeWithTimePicker), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
 //        final TimePickerDialog toReturn = new TimePickerDialog(getActivity(), this, hour, minute,DateFormat.is24HourFormat(getActivity()));
         //Hopefully works

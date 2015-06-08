@@ -68,11 +68,11 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text=":"/>
-        <Spinner
+        <edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner
             android:id="@+id/edit_entry_category_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"></Spinner>
+            android:layout_weight="3"></edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/edit_entry_annotation_row"

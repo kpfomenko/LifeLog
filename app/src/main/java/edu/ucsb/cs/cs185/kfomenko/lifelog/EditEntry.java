@@ -1,5 +1,7 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener{
     private ArrayList<Entry> entryList = new ArrayList<Entry>();
     private ArrayList<String> categoryArray = new ArrayList<String>();
     private ArrayList<String> origCategoryArray = new ArrayList<String>();
@@ -26,6 +28,9 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
     private String cat;
     private String annotation;
 
+    //For creating New Categorys
+    private MySpinner catSpin;
+    ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +56,10 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         startTime.setText(currEntry.getStartTime());
         TextView endTime = (TextView) findViewById(R.id.edit_entry_end_time);
         endTime.setText(currEntry.getEndTime());
-        Spinner catSpin = (Spinner) findViewById(R.id.edit_entry_category_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
+
+        //Spinner
+        catSpin = (MySpinner) findViewById(R.id.edit_entry_category_spinner);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
         catSpin.setAdapter(adapter);
         int spinPos = adapter.getPosition(currEntry.getCat());
@@ -109,6 +116,8 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
                 color = R.color.active;
                 break;
             case "+ Create": //TODO: Add to category list
+                DialogFragment newFragment = new CreateCategory();
+                newFragment.show(getFragmentManager(), "Create New Category:");
                 color = R.color.custom;
                 break;
             default:
@@ -153,4 +162,33 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         intent.putExtra("Categories", origCategoryArray);
         startActivity(intent);
     }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+        Dialog dialogView = dialog.getDialog();
+        EditText newCatInput = (EditText) dialogView.findViewById(R.id.create_new_cat);
+
+        cat = newCatInput.getText().toString();
+
+        origCategoryArray.add(cat);
+        int oldIndex = categoryArray.indexOf("+ Create");
+        categoryArray.add(oldIndex, cat);
+
+        //Note: for some reason this is necessary in the CreateEntryActivity but not here...?
+//        adapter.add(cat);
+        int spinPos = adapter.getPosition(cat);
+        catSpin.setAdapter(adapter);
+        catSpin.setSelection(spinPos);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        //Failed creation --> still need to set the cat value
+        cat = currEntry.getCat();
+        int spinPos = adapter.getPosition(cat);
+        catSpin.setSelection(spinPos);
+    }
+
+
 }

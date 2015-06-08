@@ -32,6 +32,7 @@
                     android:id="@+id/activity_name_input"
                     android:inputType="text"
                     android:layout_weight="1"
+                    android:maxLength="20"
                     />
             </TableRow>
         </TableLayout>

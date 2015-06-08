@@ -1,5 +1,7 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -23,10 +25,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class CreateEntryActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class CreateEntryActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener {
     private ArrayList<Entry> entryList;
     private ArrayList<String> categoryArray;
-    private ArrayList<String> dropDownArray;
+    private ArrayList<String> dropDownArray = new ArrayList<String>();
 
     //Values being set
     private String startTime;
@@ -38,12 +40,15 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
     int selectCount = 0;
 
+    ArrayAdapter<String> adapter;
+    MySpinner spinner;
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("data", entryList);
         outState.putStringArrayList("categories", categoryArray);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,9 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
-            dropDownArray= extras.getStringArrayList("Categories");
+            for(int i=0; i < categoryArray.size(); i++){
+                dropDownArray.add(categoryArray.get(i));
+            }
             dropDownArray.add("+ Create");
 //            Toast.makeText(getApplicationContext(), "Categories Loaded! + "+  categoryArray.get(0), Toast.LENGTH_LONG).show();
         }else{
@@ -66,25 +73,15 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             categoryArray = new ArrayList<String>();
         }
 
-        MySpinner spinner = (MySpinner) findViewById(R.id.cat_spinner);
+        spinner = (MySpinner) findViewById(R.id.cat_spinner);
         if(spinner == null){
             Toast.makeText(getApplicationContext(), "Spinner Is NULL!", Toast.LENGTH_LONG).show();
         }else{
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dropDownArray);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dropDownArray);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(this);
         }
-//        Spinner spinner = (Spinner) findViewById(R.id.cat_spinner);
-//        if(spinner == null){
-//            Toast.makeText(getApplicationContext(), "Spinner Is NULL!", Toast.LENGTH_LONG).show();
-//        }else{
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
-//            spinner.setAdapter(adapter);
-//            spinner.setOnItemSelectedListener(this);
-//        }
-
     }
 
     @Override
@@ -157,12 +154,16 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
                 color = R.color.active;
                 break;
             case "+ Create":
-                cat = "+ Create";
+                DialogFragment newFragment = new CreateCategory();
+                newFragment.show(getFragmentManager(), "Create New Category:");
+//                cat = "+ Create";
                 color = R.color.custom;
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "Error: Unknown option selected" , Toast.LENGTH_LONG).show();
-                color = R.color.red;
+                cat = parent.getItemAtPosition(position).toString();
+                color = R.color.custom;
+//                Toast.makeText(getApplicationContext(), "Error: Unknown option selected" , Toast.LENGTH_LONG).show();
+//                color = R.color.red;
         }
         LinearLayout lLayout = (LinearLayout) findViewById(R.id.nameLabel);
         lLayout.setBackgroundResource(color);
@@ -238,6 +239,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             }else{
                 //does not fit
                 Toast.makeText(getApplicationContext(), "Error: Time Conflict with event: "+ entryList.get(0).getLabel() , Toast.LENGTH_SHORT).show();
+                return;
             }
 
         }else{
@@ -270,6 +272,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
             if(hasBeenAdded == false){
                 Toast.makeText(getApplicationContext(), "Error: Time Selected Conflicts with another event." , Toast.LENGTH_SHORT).show();
+                return;
             }
 
         }
@@ -402,5 +405,31 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
         return true;
 
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+        Dialog dialogView = dialog.getDialog();
+        EditText newCatInput = (EditText) dialogView.findViewById(R.id.create_new_cat);
+
+        cat = newCatInput.getText().toString();
+        categoryArray.add(cat);
+        int oldIndex = dropDownArray.indexOf("+ Create");
+        dropDownArray.add(oldIndex, cat);
+
+        adapter.add(cat);
+        int spinPos = adapter.getPosition(cat);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(spinPos);
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        //Failed creation --> still need to set the cat value
+        cat = "Active";
+        int spinPos = adapter.getPosition(cat);
+        spinner.setSelection(spinPos);
     }
 }
