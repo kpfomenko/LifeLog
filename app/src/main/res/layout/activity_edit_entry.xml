@@ -13,8 +13,8 @@
             android:id="@+id/edit_entry_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test Label"
             android:textSize="24sp"
+            android:textColor="@color/white"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"/>
 
@@ -29,17 +29,18 @@
                 android:id="@+id/edit_entry_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="startTime"/>
+                android:textColor="@color/gray"/>
             <TextView
                 android:id="@+id/edit_entry_through"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/gray"
                 android:text=" - "/>
             <TextView
                 android:id="@+id/edit_entry_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="endTime"/>
+                android:textColor="@color/gray"/>
         </LinearLayout>
     </LinearLayout>
 

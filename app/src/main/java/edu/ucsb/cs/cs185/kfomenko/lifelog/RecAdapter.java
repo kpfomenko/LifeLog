@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -19,17 +20,19 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard card;
         public TextView startTime;
-        public TextView category;
+//        public TextView category;
+        public TextView endTime;
         public TextView label;
-        public LinearLayout header;
+        public RelativeLayout header;
 
         public ViewHolder(CardView v){
             super(v);
             card = (edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard) v;
             startTime = (TextView) v.findViewById(R.id.home_card_start_time);
-            category = (TextView) v.findViewById(R.id.home_card_category);
+//            category = (TextView) v.findViewById(R.id.home_card_category);
+            endTime = (TextView) v.findViewById(R.id.home_card_end_time);
             label = (TextView) v.findViewById(R.id.home_card_label);
-            header = (LinearLayout) v.findViewById(R.id.home_card_header);
+            header = (RelativeLayout) v.findViewById(R.id.home_card_header);
         }
 
     }
@@ -55,15 +58,15 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         Entry temp = myData.get(position);
         holder.card.setEntry(temp);
         holder.startTime.setText(temp.getStartTime());
-//        holder.startTime.setBackgroundResource(temp.getColor());
-        holder.category.setText("@");
-//        holder.category.setBackgroundResource(temp.getColor());
+//        holder.category.setText("@");
+        holder.endTime.setText(temp.getEndTime());
         holder.label.setText(temp.getLabel());
         holder.header.setBackgroundResource(temp.getColor());
-        int multiplyer = getMinutes(temp.getEndTime()) - getMinutes(temp.getStartTime());
-        multiplyer = multiplyer/15;
+        int multiplyer = 1;
+//        multiplyer = getMinutes(temp.getEndTime()) - getMinutes(temp.getStartTime());
+//        multiplyer = multiplyer/15;
         float density  = context.getResources().getDisplayMetrics().density;
-        int singlesize = (int) (Math.round((float)30 * density));
+        int singlesize = (int) (Math.round((float)50 * density));
         int height = (int) (singlesize * multiplyer);
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         params.setMargins(0, 0, 0, 0);
