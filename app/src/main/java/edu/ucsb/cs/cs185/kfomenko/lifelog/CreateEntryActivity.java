@@ -418,7 +418,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         int oldIndex = dropDownArray.indexOf("+ Create");
         dropDownArray.add(oldIndex, cat);
 
-        adapter.add(cat);
+//        adapter.add(cat);
         int spinPos = adapter.getPosition(cat);
         spinner.setAdapter(adapter);
         spinner.setSelection(spinPos);
