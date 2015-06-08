@@ -42,13 +42,6 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
     ArrayAdapter<String> adapter;
     MySpinner spinner;
-//    @Override
-//    public void onSaveInstanceState(Bundle outState){
-//        super.onSaveInstanceState(outState);
-//        outState.putParcelableArrayList("data", entryList);
-//        outState.putStringArrayList("categories", categoryArray);
-//    }
-//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +49,6 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         setContentView(R.layout.activity_create_entry);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-//        if(savedInstanceState != null){
-//            entryList = savedInstanceState.getParcelableArrayList("data");
-//            categoryArray = savedInstanceState.getStringArrayList("categories");
-//        }
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");

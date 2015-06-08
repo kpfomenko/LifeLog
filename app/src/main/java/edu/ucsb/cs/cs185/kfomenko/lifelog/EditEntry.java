@@ -91,7 +91,12 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(this, Home.class);
+            intent.putParcelableArrayListExtra("entryList", entryList);
+            intent.putStringArrayListExtra("Categories", categoryArray);
+            startActivity(intent);
+
             return true;
         }
 
