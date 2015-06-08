@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener{
+public class AnnotateEntry extends ActionBarActivity{
     private ArrayList<Entry> entryList = new ArrayList<Entry>();
     private ArrayList<String> categoryArray = new ArrayList<String>();
     private ArrayList<String> origCategoryArray = new ArrayList<String>();
@@ -32,8 +32,8 @@ public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnIt
     private String annotation;
 
     //For creating New Categorys
-    private Spinner catSpin;
-    ArrayAdapter<String> adapter;
+//    private Spinner catSpin;
+//    ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,6 @@ public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnIt
             }
             categoryArray.add("+ Create");
         }
-        Toast.makeText(this, "currEntry Category: "+currEntry.getCat(), Toast.LENGTH_SHORT);
         LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
         color = currEntry.getColor();
         cat = currEntry.getCat();
@@ -60,18 +59,20 @@ public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnIt
         startTime.setText(currEntry.getStartTime());
         TextView endTime = (TextView) findViewById(R.id.edit_entry_end_time);
         endTime.setText(currEntry.getEndTime());
+        TextView category = (TextView) findViewById(R.id.edit_entry_category);
+        category.setText(cat);
 
         //Spinner
-        catSpin = (Spinner) findViewById(R.id.edit_entry_category_spinner);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
-        catSpin.setAdapter(adapter);
+//        catSpin = (Spinner) findViewById(R.id.edit_entry_category_spinner);
+//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
+//        catSpin.setAdapter(adapter);
+//
+//        int spinPos = adapter.getPosition(currEntry.getCat());
+//        catSpin.setSelection(spinPos);
+//        catSpin.setOnItemSelectedListener(this);
 
-        int spinPos = adapter.getPosition(currEntry.getCat());
-        catSpin.setSelection(spinPos);
-        catSpin.setOnItemSelectedListener(this);
-
-        EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
+        edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText et = (edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText) findViewById(R.id.edit_entry_annotation_edit_text);
 //        et.setFocusable(false);
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -124,44 +125,44 @@ public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnIt
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Selecting a Category
-        switch (parent.getItemAtPosition(position).toString() ){
-            case "Work":
-                cat = "Work";
-                color = R.color.work;
-                break;
-            case "Rest":
-                cat = "Rest";
-                color = R.color.rest;
-                break;
-            case "Personal":
-                cat = "Personal";
-                color = R.color.personal;
-                break;
-            case "Active":
-                cat = "Active";
-                color = R.color.active;
-                break;
-            case "+ Create": //TODO: Add to category list
-                DialogFragment newFragment = new CreateCategory();
-                newFragment.show(getFragmentManager(), "Create New Category:");
-                color = R.color.custom;
-                break;
-            default:
-                cat = parent.getItemAtPosition(position).toString();
-                color = R.color.custom;
-                break;
-        }
-        LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
-        header.setBackgroundResource(color);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        //Selecting a Category
+//        switch (parent.getItemAtPosition(position).toString() ){
+//            case "Work":
+//                cat = "Work";
+//                color = R.color.work;
+//                break;
+//            case "Rest":
+//                cat = "Rest";
+//                color = R.color.rest;
+//                break;
+//            case "Personal":
+//                cat = "Personal";
+//                color = R.color.personal;
+//                break;
+//            case "Active":
+//                cat = "Active";
+//                color = R.color.active;
+//                break;
+//            case "+ Create":
+//                DialogFragment newFragment = new CreateCategory();
+//                newFragment.show(getFragmentManager(), "Create New Category:");
+//                color = R.color.custom;
+//                break;
+//            default:
+//                cat = parent.getItemAtPosition(position).toString();
+//                color = R.color.custom;
+//                break;
+//        }
+//        LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
+//        header.setBackgroundResource(color);
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
 
     public void edit_entry_save(View v){
         EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
@@ -192,31 +193,31 @@ public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnIt
         startActivity(intent);
     }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-
-        Dialog dialogView = dialog.getDialog();
-        EditText newCatInput = (EditText) dialogView.findViewById(R.id.create_new_cat);
+//    @Override
+//    public void onDialogPositiveClick(DialogFragment dialog) {
 //
-        cat = newCatInput.getText().toString();
-
-        origCategoryArray.add(cat);
-        int oldIndex = categoryArray.indexOf("+ Create");
-        categoryArray.add(oldIndex, cat);
+//        Dialog dialogView = dialog.getDialog();
+//        EditText newCatInput = (EditText) dialogView.findViewById(R.id.create_new_cat);
+////
+//        cat = newCatInput.getText().toString();
 //
-//        adapter.add(cat);
-        int spinPos = adapter.getPosition(cat);
-        catSpin.setAdapter(adapter);
-        catSpin.setSelection(spinPos);
-
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        //Failed creation --> still need to set the cat value
-        cat = currEntry.getCat();
-        int spinPos = adapter.getPosition(cat);
-        catSpin.setSelection(spinPos);
-    }
+//        origCategoryArray.add(cat);
+//        int oldIndex = categoryArray.indexOf("+ Create");
+//        categoryArray.add(oldIndex, cat);
+////
+////        adapter.add(cat);
+//        int spinPos = adapter.getPosition(cat);
+//        catSpin.setAdapter(adapter);
+//        catSpin.setSelection(spinPos);
+//
+//    }
+//
+//    @Override
+//    public void onDialogNegativeClick(DialogFragment dialog) {
+//        //Failed creation --> still need to set the cat value
+//        cat = currEntry.getCat();
+//        int spinPos = adapter.getPosition(cat);
+//        catSpin.setSelection(spinPos);
+//    }
 
 }
