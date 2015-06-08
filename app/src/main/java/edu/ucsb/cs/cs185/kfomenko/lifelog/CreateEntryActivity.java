@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,7 +63,24 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 //            Toast.makeText(getApplicationContext(), "Load-failed", Toast.LENGTH_LONG).show();
             categoryArray = new ArrayList<String>();
         }
-
+        EditText et = (EditText) findViewById(R.id.activity_name_input);
+        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                EditText et = (EditText) v;
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    et.setCursorVisible(false);
+                }
+                return false;
+            }
+        });
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et = (EditText) v;
+                et.setCursorVisible(true);
+            }
+        });
         spinner = (MySpinner) findViewById(R.id.cat_spinner);
         if(spinner == null){
             Toast.makeText(getApplicationContext(), "Spinner Is NULL!", Toast.LENGTH_LONG).show();

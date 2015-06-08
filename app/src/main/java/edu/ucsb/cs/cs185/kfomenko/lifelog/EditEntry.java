@@ -5,9 +5,12 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -69,6 +72,24 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         catSpin.setOnItemSelectedListener(this);
 
         EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
+//        et.setFocusable(false);
+        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                EditText et = (EditText) v;
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    et.setCursorVisible(false);
+                }
+                return false;
+            }
+        });
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et = (EditText) v;
+                et.setCursorVisible(true);
+            }
+        });
         if(annotation == null || annotation.equals("")){
             et.setHint("Add a description");
         }else{
@@ -197,6 +218,5 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         int spinPos = adapter.getPosition(cat);
         catSpin.setSelection(spinPos);
     }
-
 
 }

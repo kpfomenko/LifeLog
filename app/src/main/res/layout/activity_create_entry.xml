@@ -33,7 +33,10 @@
                     android:inputType="text"
                     android:layout_weight="1"
                     android:maxLength="20"
-                    />
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:cursorVisible="false"
+                    android:clickable="true"/>
             </TableRow>
         </TableLayout>
 
