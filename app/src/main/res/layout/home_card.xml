@@ -8,7 +8,8 @@
     android:layout_margin="0dp"
     android:padding="0dp"
     android:clickable="true"
-    android:onClick="home_card_click">
+    android:onClick="home_card_click"
+    >
 
     <LinearLayout
         android:layout_height="match_parent"

@@ -15,7 +15,9 @@
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             >
             <TableRow>
                 <TextView
@@ -48,9 +50,42 @@
         android:background="@android:color/darker_gray"
         android:layout_marginBottom="15dp"
         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectCategory"
+            android:text="Select A Category:"
+            android:onClick="selectACategory"
+            android:textSize="15dp"
+            />
+        <edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner
+            android:id="@+id/cat_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        />
+
     <TableLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,56 +102,27 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/entry_start_time_btn"
                 android:text="@string/start_time"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:onClick="setStartTime"
                 />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="To: "
                 android:textSize="15sp"
+                android:layout_marginLeft="20dp"
                 />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/entry_end_time_btn"
                 android:text="@string/end_time"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:onClick="setEndTime"
                 />
 
         </TableRow>
     </TableLayout>
-    <!--Divider    -->
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/selectCategory"
-        android:text="Select A Category:"
-        android:padding="15dp"
-        android:layout_gravity="center"
-        android:onClick="selectACategory"
-        android:textSize="15dp"
-        />
-    <edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner
-        android:id="@+id/cat_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-    />
 
     <View
         android:layout_width="fill_parent"
