@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener{
+public class AnnotateEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener{
     private ArrayList<Entry> entryList = new ArrayList<Entry>();
     private ArrayList<String> categoryArray = new ArrayList<String>();
     private ArrayList<String> origCategoryArray = new ArrayList<String>();

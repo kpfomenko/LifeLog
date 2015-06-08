@@ -1,25 +1,15 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
-import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class Home extends ActionBarActivity{
@@ -118,7 +108,7 @@ public class Home extends ActionBarActivity{
         if(data == null){
             data = new ArrayList<Entry>();
         }
-        Intent intent = new Intent(this, EditEntry.class);
+        Intent intent = new Intent(this, AnnotateEntry.class);
         intent.putParcelableArrayListExtra("entryList", data);
         intent.putExtra("currEntry", cast.getEntry());
         intent.putExtra("Categories", categoryArray);
