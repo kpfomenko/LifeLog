@@ -251,12 +251,13 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
         //Now create new entry and add it to entry array
 
-        Entry newEntry = new Entry(startTime, endTime, cat, label, null, color);
+        Entry newEntry = new Entry(startTime, endTime, cat, label, "", color);
 
         entryList.add(newEntry);
 
         Intent intent = new Intent(this, Home.class);
         intent.putParcelableArrayListExtra("entryList", entryList);
+        intent.putStringArrayListExtra("Categories", categoryArray);
 
         Toast.makeText(getApplicationContext(), "Saved." , Toast.LENGTH_SHORT).show();
 
