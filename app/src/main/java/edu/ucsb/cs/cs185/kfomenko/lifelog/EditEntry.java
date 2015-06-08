@@ -29,7 +29,7 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
     private String annotation;
 
     //For creating New Categorys
-    private MySpinner catSpin;
+    private Spinner catSpin;
     ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
             }
             categoryArray.add("+ Create");
         }
+        Toast.makeText(this, "currEntry Category: "+currEntry.getCat(), Toast.LENGTH_SHORT);
         LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
         color = currEntry.getColor();
         cat = currEntry.getCat();
@@ -58,13 +59,15 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         endTime.setText(currEntry.getEndTime());
 
         //Spinner
-        catSpin = (MySpinner) findViewById(R.id.edit_entry_category_spinner);
+        catSpin = (Spinner) findViewById(R.id.edit_entry_category_spinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
         catSpin.setAdapter(adapter);
+
         int spinPos = adapter.getPosition(currEntry.getCat());
         catSpin.setSelection(spinPos);
         catSpin.setOnItemSelectedListener(this);
+
         EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
         if(annotation == null || annotation.equals("")){
             et.setHint("Add a description");
@@ -175,11 +178,10 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         int oldIndex = categoryArray.indexOf("+ Create");
         categoryArray.add(oldIndex, cat);
 //
-        adapter.add(cat);
+//        adapter.add(cat);
         int spinPos = adapter.getPosition(cat);
         catSpin.setAdapter(adapter);
         catSpin.setSelection(spinPos);
-
 
     }
 

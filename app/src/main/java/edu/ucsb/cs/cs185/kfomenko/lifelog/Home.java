@@ -30,12 +30,12 @@ public class Home extends ActionBarActivity{
     private ArrayList<Entry> data = new ArrayList<Entry>();
     private ArrayList<String> categoryArray;
 
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("data", data);
-        outState.putStringArrayList("categories", categoryArray);
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState){
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelableArrayList("data", data);
+//        outState.putStringArrayList("categories", categoryArray);
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,10 @@ public class Home extends ActionBarActivity{
         rec.setHasFixedSize(true);
         recLayout.setOrientation(LinearLayoutManager.VERTICAL);
         rec.setLayoutManager(recLayout);
-        if(savedInstanceState != null){
-            data = savedInstanceState.getParcelableArrayList("data");
-            categoryArray = savedInstanceState.getStringArrayList("categories");
-        }
+//        if(savedInstanceState != null){
+//            data = savedInstanceState.getParcelableArrayList("data");
+//            categoryArray = savedInstanceState.getStringArrayList("categories");
+//        }
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             data = extras.getParcelableArrayList("entryList");
