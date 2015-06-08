@@ -20,18 +20,20 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard card;
         public TextView startTime;
-//        public TextView category;
+        public TextView category;
         public TextView endTime;
         public TextView label;
+        public TextView anno;
         public RelativeLayout header;
 
         public ViewHolder(CardView v){
             super(v);
             card = (edu.ucsb.cs.cs185.kfomenko.lifelog.HomeCard) v;
             startTime = (TextView) v.findViewById(R.id.home_card_start_time);
-//            category = (TextView) v.findViewById(R.id.home_card_category);
+            category = (TextView) v.findViewById(R.id.home_card_cat);
             endTime = (TextView) v.findViewById(R.id.home_card_end_time);
             label = (TextView) v.findViewById(R.id.home_card_label);
+            anno = (TextView) v.findViewById(R.id.home_card_anno);
             header = (RelativeLayout) v.findViewById(R.id.home_card_header);
         }
 
@@ -58,9 +60,10 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         Entry temp = myData.get(position);
         holder.card.setEntry(temp);
         holder.startTime.setText(temp.getStartTime());
-//        holder.category.setText("@");
+        holder.category.setText(temp.getCat());
         holder.endTime.setText(temp.getEndTime());
         holder.label.setText(temp.getLabel());
+        holder.anno.setText(temp.getAnnotation());
         holder.header.setBackgroundResource(temp.getColor());
         int multiplyer = 1;
 //        multiplyer = getMinutes(temp.getEndTime()) - getMinutes(temp.getStartTime());

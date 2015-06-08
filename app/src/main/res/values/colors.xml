@@ -16,18 +16,6 @@
     <color name="blue">#0000FF</color>
     <color name="navy">#000080</color>
     <color name="black">#000000</color>
-    <color name="actionBarColor">#ff000157</color>
-    <color name="actionPressed">#ff000198</color>
-    <color name="transparent">#00000000</color>
-    <color name="work">#B0E0E6</color>
-    <color name="rest">#FFDAB9</color>
-    <color name="personal">#c890ee90</color>
-    <color name="active">#9b9370db</color>
-    <color name="custom">#64ffff00</color>
-    <color name="transparentWhite">#19ffffff</color>
-
-
-
     <color name="White">#FFFFFF</color>
     <color name="Ivory">#FFFFF0</color>
     <color name="LightYellow">#FFFFE0</color>
@@ -168,4 +156,21 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
+
+
+
+
+
+    <color name="actionBarColor">#ff000157</color>
+    <color name="actionPressed">#ff000198</color>
+    <color name="transparent">#00000000</color>
+    <color name="work">#B0E0E6</color>
+    <color name="rest">#FFDAB9</color>
+    <color name="personal">#c890ee90</color>
+    <color name="active">#9b9370db</color>
+    <color name="custom">#64ffff00</color>
+    <color name="transparentWhite">#19ffffff</color>
+
+
+
 </resources>
