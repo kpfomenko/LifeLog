@@ -122,36 +122,36 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        Toast.makeText(getApplicationContext(), "Spinner Value: "+ parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
         //Selecting a Category
-        selectCount = selectCount + 1;
-        if(selectCount > 1){
-            switch (parent.getItemAtPosition(position).toString() ){
-                case "Work":
-                    cat = "Work";
-                    color = R.color.work;
-                    break;
-                case "Rest":
-                    cat = "Rest";
-                    color = R.color.rest;
-                    break;
-                case "Personal":
-                    cat = "Personal";
-                    color = R.color.personal;
-                    break;
-                case "Active":
-                    cat = "Active";
-                    color = R.color.active;
-                    break;
-                case "+ Create":
-                    cat = "+ Create";
-                    color = R.color.custom;
-                    break;
-                default:
-                    Toast.makeText(getApplicationContext(), "Error: Unknown option selected" , Toast.LENGTH_LONG).show();
-                    color = R.color.red;
-            }
-            LinearLayout lLayout = (LinearLayout) findViewById(R.id.nameLabel);
-            lLayout.setBackgroundResource(color);
+//        selectCount = selectCount + 1;
+//        if(selectCount > 1){
+        switch (parent.getItemAtPosition(position).toString() ){
+            case "Work":
+                cat = "Work";
+                color = R.color.work;
+                break;
+            case "Rest":
+                cat = "Rest";
+                color = R.color.rest;
+                break;
+            case "Personal":
+                cat = "Personal";
+                color = R.color.personal;
+                break;
+            case "Active":
+                cat = "Active";
+                color = R.color.active;
+                break;
+            case "+ Create":
+                cat = "+ Create";
+                color = R.color.custom;
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "Error: Unknown option selected" , Toast.LENGTH_LONG).show();
+                color = R.color.red;
         }
+        LinearLayout lLayout = (LinearLayout) findViewById(R.id.nameLabel);
+        lLayout.setBackgroundResource(color);
+//        }
 
     }
 
@@ -175,7 +175,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         if(!nameLabel.getText().toString().equals("")){
             label = nameLabel.getText().toString();
         }else{
-            Toast.makeText(getApplicationContext(), "Error: Please enter name" , Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Error: Please enter name" , Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -183,7 +183,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         if(!startBtn.getText().toString().equals("Start")){
             startTime = startBtn.getText().toString();
         }else{
-            Toast.makeText(getApplicationContext(), "Error: Please enter Start Time" , Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Error: Please enter Start Time" , Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -191,10 +191,141 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         if(!endBtn.getText().toString().equals("Finish")){
             endTime = endBtn.getText().toString();
         }else{
-            Toast.makeText(getApplicationContext(), "Error: Please enter Finish Time" , Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Error: Please enter Finish Time" , Toast.LENGTH_SHORT).show();
             return;
         }
+        //TODO: make sure times are legit
 
+//        //have startTime and endTime --> need to make sure they are realistic
+//        String startTimeArray[] = startTime.split(":");
+//        String endTimeArray[] = endTime.split(":");
+//
+//        int startHour = Integer.parseInt(startTimeArray[0]);
+//        int endHour = Integer.parseInt(endTimeArray[0]);
+//
+//        String tempStartArr[] = startTimeArray[1].split(" ");
+//        String tempEndArr[] = endTimeArray[1].split(" ");
+//
+//        int startMin = Integer.parseInt(tempStartArr[0]);
+//        int endMin = Integer.parseInt(tempEndArr[0]);
+//
+//        String startAMPM = tempStartArr[1];
+//        String endAMPM = tempEndArr[1];
+//
+//        //Checking if Legit Time Range:
+//        boolean timeRangeErrorFound = false;
+//        if(endAMPM.equals("AM")){
+//            //endAMPM cannot be a PM
+//            if(startAMPM.equals("PM") || startHour > endHour){
+//                timeRangeErrorFound = true;
+//            }
+//            if(startHour == endHour){
+//                if(startMin > endMin){
+//                    timeRangeErrorFound = true;
+//                }
+//            }
+//        }else if(startTime.equals(endTime)){
+//            timeRangeErrorFound = true;
+//        } else{
+//            //if endAMPM == PM
+//            if(startHour > endHour && startAMPM.equals("PM")){
+//                //means startHour must be AM
+//                timeRangeErrorFound = true;
+//            }
+//            if(startHour == endHour && startAMPM.equals(endAMPM)){
+//                if(startMin > endMin){
+//                    timeRangeErrorFound = true;
+//                }
+//            }
+//         }
+//
+//
+        if(!isGoodTimeRange(startTime, endTime)){
+            Toast.makeText(getApplicationContext(), "Error: The start time must be before the end time." , Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //cat and color already set.
+
+
+        //TODO: make sure the times are compatible with other entries
+
+        //Now create new entry and add it to entry array
+
+        Entry newEntry = new Entry(startTime, endTime, cat, label, null, color);
+
+        entryList.add(newEntry);
+
+        Intent intent = new Intent(this, Home.class);
+        intent.putParcelableArrayListExtra("entryList", entryList);
+
+        Toast.makeText(getApplicationContext(), "Saved." , Toast.LENGTH_SHORT).show();
+
+        startActivity(intent);
+//        for(int i=0; i< entryList.size(); i++){
+//
+//        }
+
+
+    }
+
+
+
+    public boolean isGoodTimeRange(String start, String end){
+        //have startTime and endTime --> need to make sure they are realistic
+        String startTimeArray[] = start.split(":");
+        String endTimeArray[] = end.split(":");
+
+        int startHour = Integer.parseInt(startTimeArray[0]);
+        int endHour = Integer.parseInt(endTimeArray[0]);
+
+        String tempStartArr[] = startTimeArray[1].split(" ");
+        String tempEndArr[] = endTimeArray[1].split(" ");
+
+        int startMin = Integer.parseInt(tempStartArr[0]);
+        int endMin = Integer.parseInt(tempEndArr[0]);
+
+        String startAMPM = tempStartArr[1];
+        String endAMPM = tempEndArr[1];
+
+
+        //Convert to 24 Hour Format
+        if(startAMPM.equals("PM") && startHour != 12){
+            startHour += 12;
+        }
+        if(startHour == 12 && startAMPM.equals("AM")){
+            startHour = 0;
+        }
+        if(endAMPM.equals("PM") && endHour != 12){
+            endHour += 12;
+        }
+        if(endHour == 12 && endAMPM.equals("AM")){
+            endHour = 0;
+        }
+
+//        Toast.makeText(getApplicationContext(), "Comparing: "+ startHour+":"+startMin + " and "+  endHour+":"+endMin  , Toast.LENGTH_SHORT).show();
+
+
+        //Start Checking
+        if(start.equals(end)){
+            //Same value--Error
+//            Toast.makeText(getApplicationContext(), "Case1" , Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(startHour > endHour){
+            //start hour > end hour
+//            Toast.makeText(getApplicationContext(), "Case2" , Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(startHour == endHour && startMin > endMin){
+            //if same hour, but later minute
+//            Toast.makeText(getApplicationContext(), "Case3" , Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
 
     }
 }

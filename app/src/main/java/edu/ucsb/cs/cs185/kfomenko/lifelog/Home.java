@@ -68,6 +68,8 @@ public class Home extends ActionBarActivity{
             categoryArray.add("Rest");
             categoryArray.add("Work");
         }
+
+
     }
 
 
