@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class CreateEntryActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     private ArrayList<Entry> entryList;
     private ArrayList<String> categoryArray;
+    private ArrayList<String> dropDownArray;
 
     //Values being set
     private String startTime;
@@ -49,7 +50,8 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
-            categoryArray.add("+ Create");
+            dropDownArray= extras.getStringArrayList("Categories");
+            dropDownArray.add("+ Create");
 //            Toast.makeText(getApplicationContext(), "Categories Loaded! + "+  categoryArray.get(0), Toast.LENGTH_LONG).show();
         }else{
 //            Toast.makeText(getApplicationContext(), "Load-failed", Toast.LENGTH_LONG).show();
@@ -60,7 +62,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         if(spinner == null){
             Toast.makeText(getApplicationContext(), "Spinner Is NULL!", Toast.LENGTH_LONG).show();
         }else{
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryArray);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dropDownArray);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(this);
@@ -196,50 +198,6 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         }
         //TODO: make sure times are legit
 
-//        //have startTime and endTime --> need to make sure they are realistic
-//        String startTimeArray[] = startTime.split(":");
-//        String endTimeArray[] = endTime.split(":");
-//
-//        int startHour = Integer.parseInt(startTimeArray[0]);
-//        int endHour = Integer.parseInt(endTimeArray[0]);
-//
-//        String tempStartArr[] = startTimeArray[1].split(" ");
-//        String tempEndArr[] = endTimeArray[1].split(" ");
-//
-//        int startMin = Integer.parseInt(tempStartArr[0]);
-//        int endMin = Integer.parseInt(tempEndArr[0]);
-//
-//        String startAMPM = tempStartArr[1];
-//        String endAMPM = tempEndArr[1];
-//
-//        //Checking if Legit Time Range:
-//        boolean timeRangeErrorFound = false;
-//        if(endAMPM.equals("AM")){
-//            //endAMPM cannot be a PM
-//            if(startAMPM.equals("PM") || startHour > endHour){
-//                timeRangeErrorFound = true;
-//            }
-//            if(startHour == endHour){
-//                if(startMin > endMin){
-//                    timeRangeErrorFound = true;
-//                }
-//            }
-//        }else if(startTime.equals(endTime)){
-//            timeRangeErrorFound = true;
-//        } else{
-//            //if endAMPM == PM
-//            if(startHour > endHour && startAMPM.equals("PM")){
-//                //means startHour must be AM
-//                timeRangeErrorFound = true;
-//            }
-//            if(startHour == endHour && startAMPM.equals(endAMPM)){
-//                if(startMin > endMin){
-//                    timeRangeErrorFound = true;
-//                }
-//            }
-//         }
-//
-//
         if(!isGoodTimeRange(startTime, endTime)){
             Toast.makeText(getApplicationContext(), "Error: The start time must be before the end time." , Toast.LENGTH_SHORT).show();
             return;
@@ -253,7 +211,56 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
         Entry newEntry = new Entry(startTime, endTime, cat, label, "", color);
 
-        entryList.add(newEntry);
+
+        if(entryList.size() == 0){
+            entryList.add(newEntry);
+        }else if( entryList.size() == 1){
+            //Only 1 element in the list
+            if(isEarlierTimeThan(entryList.get(0).getEndTime(), startTime)){
+                //current ends before this one
+                entryList.add(newEntry);
+            }else if(isEarlierTimeThan(endTime, entryList.get(0).getStartTime())){
+                //this entry ends before the first one starts
+                entryList.add(0, newEntry);
+            }else{
+                //does not fit
+                Toast.makeText(getApplicationContext(), "Error: Time Conflict with event: "+ entryList.get(0).getLabel() , Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+            boolean hasBeenAdded = false;
+            for(int i=0; i< entryList.size()- 1; i++){
+                Entry currEntry = entryList.get(i);
+                Entry nextEntry = entryList.get(i+1);
+
+                if(isEarlierTimeThan(endTime, currEntry.getStartTime())){
+                    // Mine happens before the first element in the list
+                    // want to insert before currentEntry
+                    entryList.add(i, newEntry);
+                    hasBeenAdded = true;
+                    break;
+                }
+                if(isEarlierTimeThan(currEntry.getEndTime(), startTime) && isEarlierTimeThan(endTime, nextEntry.getStartTime())){
+                    // means my entry starts after the currEntry ends and mine ends before next one!
+                    // means ==> Ideal Spot for Current entry has been found!
+                    entryList.add(i+1, newEntry);
+                    hasBeenAdded = true;
+                    break;
+                }
+                if(isEarlierTimeThan(nextEntry.getEndTime(), startTime) && i+1 == entryList.size()-1){
+                    //Next one is the last one, and since your time is after that, insert to end
+                    entryList.add(newEntry);
+                    hasBeenAdded = true;
+                    break;
+                }
+            }
+
+            if(hasBeenAdded == false){
+                Toast.makeText(getApplicationContext(), "Error: Time Selected Conflicts with another event." , Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
 
         Intent intent = new Intent(this, Home.class);
         intent.putParcelableArrayListExtra("entryList", entryList);
@@ -262,10 +269,6 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         Toast.makeText(getApplicationContext(), "Saved." , Toast.LENGTH_SHORT).show();
 
         startActivity(intent);
-//        for(int i=0; i< entryList.size(); i++){
-//
-//        }
-
 
     }
 
@@ -325,6 +328,64 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             return false;
         }
 
+
+        return true;
+
+    }
+
+    public boolean isEarlierTimeThan(String start, String end){
+        //have startTime and endTime --> need to make sure they are realistic
+        String startTimeArray[] = start.split(":");
+        String endTimeArray[] = end.split(":");
+
+        int startHour = Integer.parseInt(startTimeArray[0]);
+        int endHour = Integer.parseInt(endTimeArray[0]);
+
+        String tempStartArr[] = startTimeArray[1].split(" ");
+        String tempEndArr[] = endTimeArray[1].split(" ");
+
+        int startMin = Integer.parseInt(tempStartArr[0]);
+        int endMin = Integer.parseInt(tempEndArr[0]);
+
+        String startAMPM = tempStartArr[1];
+        String endAMPM = tempEndArr[1];
+
+
+        //Convert to 24 Hour Format
+        if(startAMPM.equals("PM") && startHour != 12){
+            startHour += 12;
+        }
+        if(startHour == 12 && startAMPM.equals("AM")){
+            startHour = 0;
+        }
+        if(endAMPM.equals("PM") && endHour != 12){
+            endHour += 12;
+        }
+        if(endHour == 12 && endAMPM.equals("AM")){
+            endHour = 0;
+        }
+
+//        Toast.makeText(getApplicationContext(), "Comparing: "+ startHour+":"+startMin + " and "+  endHour+":"+endMin  , Toast.LENGTH_SHORT).show();
+
+
+        //Start Checking
+        if(start.equals(end)){
+            //Same value--Error
+//            Toast.makeText(getApplicationContext(), "Case1" , Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if(startHour > endHour){
+            //start hour > end hour
+//            Toast.makeText(getApplicationContext(), "Case2" , Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(startHour == endHour && startMin > endMin){
+            //if same hour, but later minute
+//            Toast.makeText(getApplicationContext(), "Case3" , Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         return true;
 

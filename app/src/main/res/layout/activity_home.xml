@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="TestingFragement!"
         android:onClick="onTestFragment"
+        android:layout_gravity="bottom|right"
         />
 
 </FrameLayout>
