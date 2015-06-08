@@ -60,7 +60,7 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
         catSpin.setOnItemSelectedListener(this);
         EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
         if(annotation == null || annotation.equals("")){
-            et.setText("Add a description");
+            et.setHint("Add a description");
         }else{
             et.setText(annotation);
         }
@@ -127,11 +127,7 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
 
     public void edit_entry_save(View v){
         EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
-        if(et.getEditableText().toString().equals("Add a description")){
-            annotation = null;
-        }else {
-            annotation = et.getEditableText().toString();
-        }
+        annotation = et.getEditableText().toString();
         for(int i=0; i<entryList.size(); i++){
             if(currEntry.equals(entryList.get(i))){
                 entryList.get(i).setCat(cat);

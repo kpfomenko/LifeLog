@@ -52,12 +52,6 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position){
         //get element from dataset at this position
         //replace contents of your view with that element
-        float density  = context.getResources().getDisplayMetrics().density;
-        int fifty = (int) (Math.round((float)50 * density));
-        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, fifty);
-        params.setMargins(0, 0, 0, 0);
-        holder.card.setLayoutParams(params);
-        holder.card.setPreventCornerOverlap(false);
         Entry temp = myData.get(position);
         holder.card.setEntry(temp);
         holder.startTime.setText(temp.getStartTime());
@@ -66,7 +60,15 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
 //        holder.category.setBackgroundResource(temp.getColor());
         holder.label.setText(temp.getLabel());
         holder.header.setBackgroundResource(temp.getColor());
-        //TODO: set background of header to category color
+        int multiplyer = getMinutes(temp.getEndTime()) - getMinutes(temp.getStartTime());
+        multiplyer = multiplyer/15;
+        float density  = context.getResources().getDisplayMetrics().density;
+        int singlesize = (int) (Math.round((float)25 * density));
+        int height = singlesize * multiplyer;
+        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        params.setMargins(0, 0, 0, 0);
+        holder.card.setLayoutParams(params);
+        holder.card.setPreventCornerOverlap(false);
     }
 
     @Override
@@ -81,5 +83,27 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>{
         myData = data;
         this.notifyDataSetChanged();
     }
-}
 
+    public int getMinutes(String time) {
+        //have startTime and endTime --> need to make sure they are realistic
+        String timeArray[] = time.split(":");
+
+        int hour = Integer.parseInt(timeArray[0]);
+
+        String tempTimeArr[] = timeArray[1].split(" ");
+
+        int min = Integer.parseInt(tempTimeArr[0]);
+
+        String ampm = tempTimeArr[1];
+
+
+        //Convert to 24 Hour Format
+        if (ampm.equals("PM") && hour != 12) {
+            hour += 12;
+        }
+        if (hour == 12 && ampm.equals("AM")) {
+            hour = 0;
+        }
+        return hour*60 + min;
+    }
+}

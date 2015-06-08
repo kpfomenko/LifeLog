@@ -4,10 +4,8 @@
     android:id="@+id/home_card"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_marginLeft="0dp"
-    android:layout_marginBottom="0dp"
-    android:layout_marginRight="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
     android:padding="0dp"
     android:clickable="true"
     android:onClick="home_card_click">
@@ -22,9 +20,9 @@
         android:background="@drawable/card_border">
         <LinearLayout
             android:id="@+id/home_card_header"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:orientation="horizontal"
             android:padding="0dp"
             android:layout_marginTop="1dp"
@@ -48,9 +46,9 @@
             android:background="@color/gray"></View>
         <TextView
             android:id="@+id/home_card_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="8"
             android:gravity="center"/>
     </LinearLayout>
 
