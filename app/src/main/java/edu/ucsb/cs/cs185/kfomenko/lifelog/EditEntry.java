@@ -168,18 +168,19 @@ public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSe
 
         Dialog dialogView = dialog.getDialog();
         EditText newCatInput = (EditText) dialogView.findViewById(R.id.create_new_cat);
-
+//
         cat = newCatInput.getText().toString();
 
         origCategoryArray.add(cat);
         int oldIndex = categoryArray.indexOf("+ Create");
         categoryArray.add(oldIndex, cat);
-
-        //Note: for some reason this is necessary in the CreateEntryActivity but not here...?
-//        adapter.add(cat);
+//
+        adapter.add(cat);
         int spinPos = adapter.getPosition(cat);
         catSpin.setAdapter(adapter);
         catSpin.setSelection(spinPos);
+
+
     }
 
     @Override
