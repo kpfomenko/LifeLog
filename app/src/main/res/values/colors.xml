@@ -17,13 +17,14 @@
     <color name="navy">#000080</color>
     <color name="black">#000000</color>
     <color name="actionBarColor">#ff000157</color>
-    <color name="actionPressed">#C74338</color>
+    <color name="actionPressed">#ff000198</color>
     <color name="transparent">#00000000</color>
     <color name="work">#B0E0E6</color>
     <color name="rest">#FFDAB9</color>
     <color name="personal">#c890ee90</color>
     <color name="active">#9b9370db</color>
     <color name="custom">#64ffff00</color>
+    <color name="transparentWhite">#32ffffff</color>
 
 
 

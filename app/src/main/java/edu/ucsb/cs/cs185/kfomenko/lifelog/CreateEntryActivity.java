@@ -221,7 +221,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         //TODO: make sure times are legit
 
         if(!isGoodTimeRange(startTime, endTime)){
-            Toast.makeText(getApplicationContext(), "Error: The start time must be before the end time." , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error: Start time must be before the end time." , Toast.LENGTH_SHORT).show();
             return;
         }
         //cat and color already set.
@@ -279,7 +279,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             }
 
             if(hasBeenAdded == false){
-                Toast.makeText(getApplicationContext(), "Error: Time Selected Conflicts with another event." , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error: Time Chosen Conflicts with Another Event." , Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -290,7 +290,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         intent.putParcelableArrayListExtra("entryList", entryList);
         intent.putStringArrayListExtra("Categories", categoryArray);
 
-        Toast.makeText(getApplicationContext(), "Saved." , Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Saved." , Toast.LENGTH_SHORT).show();
 
         startActivity(intent);
 
