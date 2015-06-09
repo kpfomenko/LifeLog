@@ -15,5 +15,6 @@
     <string name="doneBtnText">Done</string>
     <string name="cancelBtnText">Cancel</string>
     <string name="filter_title">Filter By: </string>
+    <string name="title_activity_edit_entry">EditEntry</string>
 
 </resources>

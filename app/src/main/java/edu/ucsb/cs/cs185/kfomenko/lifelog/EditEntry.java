@@ -27,10 +27,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class CreateEntryActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener {
+public class EditEntry extends ActionBarActivity implements AdapterView.OnItemSelectedListener, CreateCategory.CreateCategoryListener {
     private ArrayList<Entry> entryList;
     private ArrayList<String> categoryArray;
     private ArrayList<String> dropDownArray = new ArrayList<String>();
+    private Entry currEntry;
 
     //Values being set
     private String startTime;
@@ -48,12 +49,13 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_entry);
+        setContentView(R.layout.activity_edit_entry);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
             categoryArray = extras.getStringArrayList("Categories");
+            currEntry = (Entry) extras.getParcelable("currEntry");
             for(int i=0; i < categoryArray.size(); i++){
                 dropDownArray.add(categoryArray.get(i));
             }
@@ -64,6 +66,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             categoryArray = new ArrayList<String>();
         }
         EditText et = (EditText) findViewById(R.id.activity_name_input);
+        et.setText(currEntry.getLabel());
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -83,6 +86,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         });
         edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText description = (edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText) findViewById(R.id.annotationEntry);
 //        et.setFocusable(false);
+        description.setText(currEntry.getAnnotation());
         description.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -109,12 +113,18 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(this);
         }
+        int spinPos = adapter.getPosition(currEntry.getCat());
+        spinner.setSelection(spinPos);
+        Button start = (Button) findViewById(R.id.entry_start_time_btn);
+        start.setText(currEntry.getStartTime());
+        Button end = (Button) findViewById(R.id.entry_end_time_btn);
+        end.setText(currEntry.getEndTime());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_entry, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_entry, menu);
         return true;
     }
 
@@ -127,9 +137,10 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
-            Intent intent = new Intent(this, Home.class);
+            Intent intent = new Intent(this, ShowEntry.class);
             intent.putParcelableArrayListExtra("entryList", entryList);
             intent.putStringArrayListExtra("Categories", categoryArray);
+            intent.putExtra("currEntry", currEntry);
             startActivity(intent);
 
             return true;
@@ -212,6 +223,12 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
     public void createNewEntry(View v){
         //creating new entry -- must error check
+        ArrayList<Entry> copy = new ArrayList<Entry>();
+        for(int i=0; i<entryList.size(); i++){
+            copy.add(entryList.get(i));
+        }
+
+        copy.remove(copy.indexOf(currEntry));
 
         EditText nameLabel = (EditText) findViewById(R.id.activity_name_input);
 
@@ -252,45 +269,45 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         Entry newEntry = new Entry(startTime, endTime, cat, label, annotation, color);
 
 
-        if(entryList.size() == 0){
-            entryList.add(newEntry);
-        }else if( entryList.size() == 1){
+        if(copy.size() == 0){
+            copy.add(newEntry);
+        }else if( copy.size() == 1){
             //Only 1 element in the list
-            if(isEarlierTimeThan(entryList.get(0).getEndTime(), startTime)){
+            if(isEarlierTimeThan(copy.get(0).getEndTime(), startTime)){
                 //current ends before this one
-                entryList.add(newEntry);
-            }else if(isEarlierTimeThan(endTime, entryList.get(0).getStartTime())){
+                copy.add(newEntry);
+            }else if(isEarlierTimeThan(endTime, copy.get(0).getStartTime())){
                 //this entry ends before the first one starts
-                entryList.add(0, newEntry);
+                copy.add(0, newEntry);
             }else{
                 //does not fit
-                Toast.makeText(getApplicationContext(), "Error: Time Conflict with event: "+ entryList.get(0).getLabel() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error: Time Conflict with event: "+ copy.get(0).getLabel() , Toast.LENGTH_SHORT).show();
                 return;
             }
 
         }else{
             boolean hasBeenAdded = false;
-            for(int i=0; i< entryList.size()- 1; i++){
-                Entry currEntry = entryList.get(i);
-                Entry nextEntry = entryList.get(i+1);
+            for(int i=0; i< copy.size()- 1; i++){
+                Entry currEntry = copy.get(i);
+                Entry nextEntry = copy.get(i+1);
 
                 if(isEarlierTimeThan(endTime, currEntry.getStartTime())){
                     // Mine happens before the first element in the list
                     // want to insert before currentEntry
-                    entryList.add(i, newEntry);
+                    copy.add(i, newEntry);
                     hasBeenAdded = true;
                     break;
                 }
                 if(isEarlierTimeThan(currEntry.getEndTime(), startTime) && isEarlierTimeThan(endTime, nextEntry.getStartTime())){
                     // means my entry starts after the currEntry ends and mine ends before next one!
                     // means ==> Ideal Spot for Current entry has been found!
-                    entryList.add(i+1, newEntry);
+                    copy.add(i+1, newEntry);
                     hasBeenAdded = true;
                     break;
                 }
-                if(isEarlierTimeThan(nextEntry.getEndTime(), startTime) && i+1 == entryList.size()-1){
+                if(isEarlierTimeThan(nextEntry.getEndTime(), startTime) && i+1 == copy.size()-1){
                     //Next one is the last one, and since your time is after that, insert to end
-                    entryList.add(newEntry);
+                    copy.add(newEntry);
                     hasBeenAdded = true;
                     break;
                 }
@@ -305,7 +322,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
 
 
         Intent intent = new Intent(this, Home.class);
-        intent.putParcelableArrayListExtra("entryList", entryList);
+        intent.putParcelableArrayListExtra("entryList", copy);
         intent.putStringArrayListExtra("Categories", categoryArray);
 
 //        Toast.makeText(getApplicationContext(), "Saved." , Toast.LENGTH_SHORT).show();

@@ -11,10 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -175,7 +173,7 @@ public class Home extends ActionBarActivity implements FilterByCategoryFragment.
         if(data == null){
             data = new ArrayList<Entry>();
         }
-        Intent intent = new Intent(this, AnnotateEntry.class);
+        Intent intent = new Intent(this, ShowEntry.class);
         intent.putParcelableArrayListExtra("entryList", data);
         intent.putExtra("currEntry", cast.getEntry());
         intent.putExtra("Categories", categoryArray);

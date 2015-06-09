@@ -28,21 +28,28 @@
             android:name=".CreateEntryActivity"
             android:label="@string/title_activity_create_entry"
             android:parentActivityName=".Home"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ucsb.cs.cs185.kfomenko.lifelog.Home" />
         </activity>
         <activity
-            android:name=".AnnotateEntry"
+            android:name=".ShowEntry"
             android:label="@string/title_activity_annotate_entry"
             android:parentActivityName=".Home"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ucsb.cs.cs185.kfomenko.lifelog.Home" />
+        </activity>
+        <activity
+            android:name=".EditEntry"
+            android:label="@string/title_activity_edit_entry"
+            android:parentActivityName=".ShowEntry"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ucsb.cs.cs185.kfomenko.lifelog.ShowEntry" />
         </activity>
     </application>
 

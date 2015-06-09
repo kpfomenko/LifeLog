@@ -1,28 +1,18 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class AnnotateEntry extends ActionBarActivity{
+public class ShowEntry extends ActionBarActivity{
     private ArrayList<Entry> entryList = new ArrayList<Entry>();
     private ArrayList<String> categoryArray = new ArrayList<String>();
     private ArrayList<String> origCategoryArray = new ArrayList<String>();
@@ -37,7 +27,7 @@ public class AnnotateEntry extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_entry);
+        setContentView(R.layout.activity_show_entry);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             entryList = extras.getParcelableArrayList("entryList");
@@ -185,7 +175,7 @@ public class AnnotateEntry extends ActionBarActivity{
 //        intent.putParcelableArrayListExtra("entryList", entryList);
 //        intent.putExtra("Categories", origCategoryArray);
 //        startActivity(intent);
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, EditEntry.class);
         intent.putParcelableArrayListExtra("entryList", entryList);
         intent.putExtra("Categories", origCategoryArray);
         intent.putExtra("currEntry", currEntry);
