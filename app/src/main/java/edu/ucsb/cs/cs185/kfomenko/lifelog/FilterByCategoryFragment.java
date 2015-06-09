@@ -73,7 +73,7 @@ public class FilterByCategoryFragment extends DialogFragment {
                 .setPositiveButton(R.string.doneBtnText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         filterCategoryListener.onDialogPositiveClick(FilterByCategoryFragment.this);
-                        Toast.makeText(getActivity().getApplicationContext(), R.string.doneBtnText, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity().getApplicationContext(), R.string.doneBtnText, Toast.LENGTH_SHORT).show();
 
                     }
 //                })

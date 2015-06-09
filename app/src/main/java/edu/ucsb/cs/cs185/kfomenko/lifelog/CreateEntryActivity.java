@@ -304,6 +304,7 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
         }
 
 
+
         Intent intent = new Intent(this, Home.class);
         intent.putParcelableArrayListExtra("entryList", entryList);
         intent.putStringArrayListExtra("Categories", categoryArray);

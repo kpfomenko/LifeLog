@@ -124,7 +124,7 @@ public class Home extends ActionBarActivity implements FilterByCategoryFragment.
                             data.clear();
                             updateDisplayedCards();
                             noEntries.setVisibility(View.VISIBLE);
-                            Toast.makeText(getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -182,7 +182,7 @@ public class Home extends ActionBarActivity implements FilterByCategoryFragment.
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Toast.makeText(getApplicationContext(), "PostiveClick ", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "PostiveClick ", Toast.LENGTH_SHORT).show();
     }
 
     public void onCheckboxClicked(View view) {

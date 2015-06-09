@@ -46,7 +46,7 @@ public class CreateCategory extends DialogFragment {
                 .setPositiveButton(R.string.doneBtnText, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         categoryListener.onDialogPositiveClick(CreateCategory.this);
-                        Toast.makeText(getActivity().getApplicationContext(), R.string.doneBtnText, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity().getApplicationContext(), R.string.doneBtnText, Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -54,7 +54,7 @@ public class CreateCategory extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         categoryListener.onDialogNegativeClick(CreateCategory.this);
-                        Toast.makeText(getActivity().getApplicationContext(), R.string.cancelBtnText, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity().getApplicationContext(), R.string.cancelBtnText, Toast.LENGTH_SHORT).show();
                     }
                 });
         // Create the AlertDialog object and return it
