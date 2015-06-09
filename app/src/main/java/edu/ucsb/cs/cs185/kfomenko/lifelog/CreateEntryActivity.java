@@ -218,20 +218,19 @@ public class CreateEntryActivity extends ActionBarActivity implements AdapterVie
             Toast.makeText(getApplicationContext(), "Error: Please enter Finish Time" , Toast.LENGTH_SHORT).show();
             return;
         }
-        //TODO: make sure times are legit
-
         if(!isGoodTimeRange(startTime, endTime)){
             Toast.makeText(getApplicationContext(), "Error: Start time must be before the end time." , Toast.LENGTH_SHORT).show();
             return;
         }
         //cat and color already set.
 
-
-        //TODO: make sure the times are compatible with other entries
+        //Getting Annotation
+        MyEditText description = (MyEditText) findViewById(R.id.annotationEntry);
+        annotation = description.getText().toString();
 
         //Now create new entry and add it to entry array
 
-        Entry newEntry = new Entry(startTime, endTime, cat, label, "", color);
+        Entry newEntry = new Entry(startTime, endTime, cat, label, annotation, color);
 
 
         if(entryList.size() == 0){

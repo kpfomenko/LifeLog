@@ -131,6 +131,42 @@
         android:layout_marginBottom="15dp"
         />
 
+    <LinearLayout
+        android:id="@+id/edit_entry_annotation_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/annotationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Description: "/>
+
+        <edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText
+            android:id="@+id/annotationEntry"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:imeOptions="actionDone"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        />
+
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="60dp"
