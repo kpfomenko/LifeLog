@@ -1,6 +1,8 @@
 package edu.ucsb.cs.cs185.kfomenko.lifelog;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -111,9 +113,38 @@ public class Home extends ActionBarActivity implements FilterByCategoryFragment.
             newFragment.show(getFragmentManager(), "Filter");
         }
         if(id == R.id.action_clear) {
-            data.clear();
-            updateDisplayedCards();
-            noEntries.setVisibility(View.VISIBLE);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//            alertDialogBuilder.setTitle("Your Title");
+            alertDialogBuilder
+                    .setMessage("Are you sure you want to delete all log entries?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            data.clear();
+                            updateDisplayedCards();
+                            noEntries.setVisibility(View.VISIBLE);
+                            Toast.makeText(getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+            alertDialog.show();
+
+
+//            data.clear();
+//            updateDisplayedCards();
+//            noEntries.setVisibility(View.VISIBLE);
         }
 
         return super.onOptionsItemSelected(item);

@@ -4,5 +4,5 @@
     <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"-->
         <!--android:orderInCategory="100" app:showAsAction="never" />-->
     <item android:id="@+id/action_filter" android:title="FILTER" app:showAsAction="always"/>
-    <item android:id="@+id/action_clear" android:title="Clear" app:showAsAction="never"/>
+    <item android:id="@+id/action_clear" android:icon="@android:drawable/ic_menu_delete" android:title="Delete All" app:showAsAction="always"/>
 </menu>
