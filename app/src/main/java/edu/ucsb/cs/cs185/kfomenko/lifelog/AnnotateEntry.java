@@ -27,9 +27,9 @@ public class AnnotateEntry extends ActionBarActivity{
     private ArrayList<String> categoryArray = new ArrayList<String>();
     private ArrayList<String> origCategoryArray = new ArrayList<String>();
     private Entry currEntry;
-    private Integer color;
-    private String cat;
-    private String annotation;
+//    private Integer color;
+//    private String cat;
+//    private String annotation;
 
     //For creating New Categorys
 //    private Spinner catSpin;
@@ -49,9 +49,9 @@ public class AnnotateEntry extends ActionBarActivity{
             categoryArray.add("+ Create");
         }
         LinearLayout header = (LinearLayout) findViewById(R.id.edit_entry_header);
-        color = currEntry.getColor();
-        cat = currEntry.getCat();
-        annotation = currEntry.getAnnotation();
+//        color = currEntry.getColor();
+//        cat = currEntry.getCat();
+//        annotation = currEntry.getAnnotation();
         header.setBackgroundResource(currEntry.getColor());
         TextView label = (TextView) findViewById(R.id.edit_entry_label);
         label.setText(currEntry.getLabel());
@@ -60,7 +60,13 @@ public class AnnotateEntry extends ActionBarActivity{
         TextView endTime = (TextView) findViewById(R.id.edit_entry_end_time);
         endTime.setText(currEntry.getEndTime());
         TextView category = (TextView) findViewById(R.id.edit_entry_category);
-        category.setText(cat);
+        category.setText(currEntry.getCat());
+        TextView anno = (TextView) findViewById(R.id.edit_entry_anno);
+        if(currEntry.getAnnotation().equals("")){
+            anno.setText("No description set");
+        }else {
+            anno.setText(currEntry.getAnnotation());
+        }
 
         //Spinner
 //        catSpin = (Spinner) findViewById(R.id.edit_entry_category_spinner);
@@ -72,30 +78,30 @@ public class AnnotateEntry extends ActionBarActivity{
 //        catSpin.setSelection(spinPos);
 //        catSpin.setOnItemSelectedListener(this);
 
-        edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText et = (edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText) findViewById(R.id.edit_entry_annotation_edit_text);
-//        et.setFocusable(false);
-        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                EditText et = (EditText) v;
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    et.setCursorVisible(false);
-                }
-                return false;
-            }
-        });
-        et.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText et = (EditText) v;
-                et.setCursorVisible(true);
-            }
-        });
-        if(annotation == null || annotation.equals("")){
-            et.setHint("Add a description");
-        }else{
-            et.setText(annotation);
-        }
+//        edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText et = (edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText) findViewById(R.id.edit_entry_annotation_edit_text);
+////        et.setFocusable(false);
+//        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                EditText et = (EditText) v;
+//                if(actionId == EditorInfo.IME_ACTION_DONE){
+//                    et.setCursorVisible(false);
+//                }
+//                return false;
+//            }
+//        });
+//        et.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditText et = (EditText) v;
+//                et.setCursorVisible(true);
+//            }
+//        });
+//        if(annotation == null || annotation.equals("")){
+//            et.setHint("Add a description");
+//        }else{
+//            et.setText(annotation);
+//        }
     }
 
     @Override
@@ -164,20 +170,25 @@ public class AnnotateEntry extends ActionBarActivity{
 //
 //    }
 
-    public void edit_entry_save(View v){
-        EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
-        annotation = et.getEditableText().toString();
-        for(int i=0; i<entryList.size(); i++){
-            if(currEntry.equals(entryList.get(i))){
-                entryList.get(i).setCat(cat);
-                entryList.get(i).setAnnotation(annotation);
-                entryList.get(i).setColor(color);
-                break;
-            }
-        }
+    public void edit_entry_edit(View v){
+//        EditText et = (EditText) findViewById(R.id.edit_entry_annotation_edit_text);
+//        annotation = et.getEditableText().toString();
+//        for(int i=0; i<entryList.size(); i++){
+//            if(currEntry.equals(entryList.get(i))){
+//                entryList.get(i).setCat(cat);
+//                entryList.get(i).setAnnotation(annotation);
+//                entryList.get(i).setColor(color);
+//                break;
+//            }
+//        }
+//        Intent intent = new Intent(this, Home.class);
+//        intent.putParcelableArrayListExtra("entryList", entryList);
+//        intent.putExtra("Categories", origCategoryArray);
+//        startActivity(intent);
         Intent intent = new Intent(this, Home.class);
         intent.putParcelableArrayListExtra("entryList", entryList);
         intent.putExtra("Categories", origCategoryArray);
+        intent.putExtra("currEntry", currEntry);
         startActivity(intent);
     }
 

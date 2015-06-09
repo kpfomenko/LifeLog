@@ -10,7 +10,7 @@
     <string name="start_time">Start</string>
     <string name="end_time">Finish</string>
     <string name="title_activity_create_entry">CreateEntryActivity</string>
-    <string name="title_activity_annotate_entry">AnnotateEntry</string>
+    <string name="title_activity_annotate_entry">Entry</string>
     <string name="title_create_category">Create New Category:</string>
     <string name="doneBtnText">Done</string>
     <string name="cancelBtnText">Cancel</string>

@@ -1,179 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nameLabel"
-        android:paddingTop="0dp"
-        android:paddingBottom="15dp"
-        android:layout_margin="0dp"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameLabel"
+            android:paddingTop="0dp"
+            android:paddingBottom="15dp"
+            android:layout_margin="0dp"
+            >
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                >
+                <TableRow>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_name"
+                        android:textSize="15sp"
+                        android:id="@+id/team1InputLabel"
+                        android:paddingRight="5dp"
+                        />
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/activity_name_input"
+                        android:inputType="text"
+                        android:layout_weight="1"
+                        android:maxLength="20"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:cursorVisible="false"
+                        android:clickable="true"/>
+                </TableRow>
+            </TableLayout>
+
+            </LinearLayout>
+        <!--Divider    -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="15dp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectCategory"
+                android:text="Select A Category:"
+                android:textSize="15dp"
+                />
+            <edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner
+                android:id="@+id/cat_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            />
+
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             >
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                >
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_name"
+                    android:text="From: "
                     android:textSize="15sp"
-                    android:id="@+id/team1InputLabel"
-                    android:paddingRight="5dp"
                     />
-                <EditText
-                    android:layout_width="fill_parent"
+                <Button
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/activity_name_input"
-                    android:inputType="text"
-                    android:layout_weight="1"
-                    android:maxLength="20"
-                    android:imeOptions="actionDone"
-                    android:singleLine="true"
-                    android:cursorVisible="false"
-                    android:clickable="true"/>
+                    android:id="@+id/entry_start_time_btn"
+                    android:text="@string/start_time"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="setStartTime"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="To: "
+                    android:textSize="15sp"
+                    android:layout_marginLeft="20dp"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/entry_end_time_btn"
+                    android:text="@string/end_time"
+                    android:layout_marginLeft="10dp"
+                    android:onClick="setEndTime"
+                    />
+
             </TableRow>
         </TableLayout>
 
-        </LinearLayout>
-    <!--Divider    -->
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="15dp"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectCategory"
-            android:text="Select A Category:"
-            android:textSize="15dp"
-            />
-        <edu.ucsb.cs.cs185.kfomenko.lifelog.MySpinner
-            android:id="@+id/cat_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             />
 
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        />
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
-        <TableRow
+        <LinearLayout
+            android:id="@+id/edit_entry_annotation_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            >
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center">
+
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/annotationLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From: "
                 android:textSize="15sp"
-                />
-            <Button
-                android:layout_width="match_parent"
+                android:text="Description: "/>
+
+            <edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText
+                android:id="@+id/annotationEntry"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/entry_start_time_btn"
-                android:text="@string/start_time"
-                android:layout_marginLeft="10dp"
-                android:onClick="setStartTime"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="To: "
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp"
-                />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/entry_end_time_btn"
-                android:text="@string/end_time"
-                android:layout_marginLeft="10dp"
-                android:onClick="setEndTime"
-                />
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:imeOptions="actionDone"/>
+        </LinearLayout>
 
-        </TableRow>
-    </TableLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        />
-
-    <LinearLayout
-        android:id="@+id/edit_entry_annotation_row"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/annotationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Description: "/>
-
-        <edu.ucsb.cs.cs185.kfomenko.lifelog.MyEditText
-            android:id="@+id/annotationEntry"
+        <View
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:imeOptions="actionDone"/>
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            />
+
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:text="Save"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:onClick="createNewEntry"
+        />
     </LinearLayout>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        />
-
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:text="Save"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:onClick="createNewEntry"
-    />
-
-</LinearLayout>
+</ScrollView>
